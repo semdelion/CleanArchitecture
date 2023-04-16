@@ -18,15 +18,6 @@ import com.semdelion.data.storages.SharedPrefUserStorage
 import com.semdelion.domain.models.User
 import com.semdelion.domain.repositories.IUserRepository
 
-class MainViewModelFactory(private val repository: IUserRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
-
 class MainFragment : Fragment() {
 
     companion object {
@@ -38,8 +29,8 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val repository = com.semdelion.data.repositories.UserRepository(
-            com.semdelion.data.storages.SharedPrefUserStorage(requireContext().applicationContext)
+        val repository = UserRepository(
+            SharedPrefUserStorage(requireContext().applicationContext)
         )
         viewModel = ViewModelProvider(this, MainViewModelFactory(repository)).get(MainViewModel::class.java)
     }
@@ -63,7 +54,12 @@ class MainFragment : Fragment() {
         sendButton.setOnClickListener {
             val firstName = firstNameEditText.text.toString()
             val lastName = lastNameEditText.text.toString()
-            val result = viewModel.saveUser.execute(User(firstName, lastName))
+            val result = viewModel.saveUser.execute(
+                User(
+                    firstName,
+                    lastName
+                )
+            )
             if (result)
                 Toast.makeText(context, "Success save", Toast.LENGTH_SHORT).show()
             else
@@ -76,5 +72,14 @@ class MainFragment : Fragment() {
         }
 
         return view;
+    }
+}
+
+class MainViewModelFactory(private val repository: IUserRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            return MainViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
