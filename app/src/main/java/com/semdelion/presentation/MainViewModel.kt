@@ -1,13 +1,26 @@
 package com.semdelion.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.semdelion.domain.repositories.IUserRepository
+import com.semdelion.domain.models.User
 import com.semdelion.domain.usecases.GetUser
 import com.semdelion.domain.usecases.SaveUser
 
-class MainViewModel(repository: IUserRepository) : ViewModel() {
-    private val userRepository: IUserRepository = repository
+class MainViewModel(private val getUser: GetUser, private val saveUser: SaveUser) : ViewModel() {
 
-    val getUser = GetUser(userRepository)
-    val saveUser = SaveUser(userRepository)
+    private val _loadedUserLive = MutableLiveData<String>("")
+    val loadedUserLive:LiveData<String> = _loadedUserLive
+
+    val firstNameLive = MutableLiveData<String>("")
+    val lastNameLive = MutableLiveData<String>("")
+
+    fun save() {
+       val result = saveUser.execute(User(firstName = firstNameLive.value ?: "", lastName = lastNameLive.value ?: ""))
+    }
+
+    fun load() {
+        val user = getUser.execute()
+        _loadedUserLive.value = "${user.firstName}, ${user.lastName}"
+    }
 }
