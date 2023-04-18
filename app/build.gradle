@@ -8,6 +8,10 @@ android {
     namespace 'com.semdelion'
     compileSdk 33
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.semdelion"
         minSdk 21
