@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.semdelion.R
 import com.semdelion.databinding.FragmentMainBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
@@ -18,15 +19,8 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel by viewModel<MainViewModel>()
     private lateinit var viewBinding: FragmentMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this,
-            MainViewModelFactory(requireContext().applicationContext)
-        )[MainViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
