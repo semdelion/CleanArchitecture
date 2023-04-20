@@ -1,4 +1,4 @@
-/*package com.semdelion.presentation
+package com.semdelion.presentation
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -24,4 +24,4 @@ class MainViewModelFactory(context: Context) : ViewModelProvider.Factory {
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-}*/
+}

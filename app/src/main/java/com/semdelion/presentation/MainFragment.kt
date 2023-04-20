@@ -2,7 +2,6 @@ package com.semdelion.presentation
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.semdelion.R
 import com.semdelion.databinding.FragmentMainBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
@@ -22,14 +18,14 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private val viewModel by viewModel<MainViewModel>()
+    private lateinit var viewModel: MainViewModel
     private lateinit var viewBinding: FragmentMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-/*      viewModel = ViewModelProvider(this,
+        viewModel = ViewModelProvider(this,
             MainViewModelFactory(requireContext().applicationContext)
-        )[MainViewModel::class.java]*/
+        )[MainViewModel::class.java]
     }
 
     override fun onCreateView(
