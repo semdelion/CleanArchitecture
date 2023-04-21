@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.semdelion.domain.models.User
 import com.semdelion.domain.usecases.GetUser
 import com.semdelion.domain.usecases.SaveUser
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel(private val getUser: GetUser, private val saveUser: SaveUser) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(private val getUser: GetUser, private val saveUser: SaveUser) : ViewModel() {
 
     private val _loadedUserLive = MutableLiveData<String>("")
     val loadedUserLive:LiveData<String> = _loadedUserLive
