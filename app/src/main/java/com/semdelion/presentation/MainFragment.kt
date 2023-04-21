@@ -10,7 +10,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.semdelion.R
+import com.semdelion.app.App
 import com.semdelion.databinding.FragmentMainBinding
+import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
@@ -18,14 +20,15 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
     private lateinit var viewModel: MainViewModel
     private lateinit var viewBinding: FragmentMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this,
-            MainViewModelFactory(requireContext().applicationContext)
-        )[MainViewModel::class.java]
+        (requireActivity().applicationContext as App).appComponent.inject(this)
+        viewModel = ViewModelProvider(this,viewModelFactory)[MainViewModel::class.java]
     }
 
     override fun onCreateView(
