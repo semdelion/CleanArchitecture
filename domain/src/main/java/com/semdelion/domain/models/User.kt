@@ -1,3 +1,3 @@
 package com.semdelion.domain.models
 
-class User(val firstName: String, val lastName: String)
+data class User(val firstName: String, val lastName: String)

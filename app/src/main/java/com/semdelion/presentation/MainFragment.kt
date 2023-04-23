@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.semdelion.R
@@ -34,13 +33,8 @@ class MainFragment : Fragment() {
 
         val view = viewBinding.root
 
-        val dataTextView = view.findViewById<TextView>(R.id.get_data_textview)
         val sendButton = view.findViewById<Button>(R.id.save_data_button)
         val receiveButton = view.findViewById<Button>(R.id.get_data_button)
-
-        viewModel.loadedUserLive.observe(viewLifecycleOwner) {
-            dataTextView.text = it
-        }
 
         sendButton.setOnClickListener {
             viewModel.save()
