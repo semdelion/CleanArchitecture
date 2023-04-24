@@ -3,11 +3,13 @@ package com.semdelion.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.semdelion.domain.models.User
 import com.semdelion.domain.usecases.GetUser
 import com.semdelion.domain.usecases.SaveUser
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 
 class MainViewModel(private val getUser: GetUser, private val saveUser: SaveUser) : ViewModel() {
 
@@ -23,15 +25,33 @@ class MainViewModel(private val getUser: GetUser, private val saveUser: SaveUser
     val firstNameLive = MutableLiveData<String>("")
     val lastNameLive = MutableLiveData<String>("")
 
-    fun save() {
-        _errorFirstNameLive.value = if (firstNameLive.value.isNullOrBlank()) "First name is empty" else ""
-        _errorLastNameLive.value = if(lastNameLive.value.isNullOrBlank()) "Last name is empty" else ""
+    private val _useCaseState = MutableSharedFlow<String>()
+    val useCaseState = _useCaseState.asSharedFlow()
 
-        val result = saveUser.execute(User(firstName = firstNameLive.value ?: "", lastName = lastNameLive.value ?: ""))
+    fun save() {
+        viewModelScope.launch {
+            _errorFirstNameLive.value =
+                if (firstNameLive.value.isNullOrBlank()) "First name is empty" else ""
+            _errorLastNameLive.value =
+                if (lastNameLive.value.isNullOrBlank()) "Last name is empty" else ""
+
+            val result = saveUser.execute(
+                User(
+                    firstName = firstNameLive.value ?: "",
+                    lastName = lastNameLive.value ?: ""
+                )
+            )
+            _useCaseState.emit(if(result) "Successful save!" else "Failure save!")
+        }
+
     }
 
     fun load() {
-        val user = getUser.execute()
-        _loadedUserLive.value = "${user.firstName}, ${user.lastName}"
+        viewModelScope.launch {
+            val user = getUser.execute()
+            _loadedUserLive.value = "${user.firstName}, ${user.lastName}"
+            if(user.firstName.isEmpty() and user.lastName.isEmpty())
+                _useCaseState.emit("DB is empty")
+        }
     }
 }
