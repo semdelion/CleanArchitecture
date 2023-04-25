@@ -1,16 +1,27 @@
 package com.semdelion.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.semdelion.R
 import com.semdelion.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.semdelion.R
+import com.semdelion.databinding.FragmentMainBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -42,6 +53,14 @@ class MainFragment : Fragment() {
 
         receiveButton.setOnClickListener {
             viewModel.load()
+        }
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.useCaseState.collectLatest {
+                    Toast.makeText(view.context, it, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         return view;
