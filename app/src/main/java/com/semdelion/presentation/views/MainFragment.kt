@@ -1,8 +1,6 @@
-package com.semdelion.presentation
+package com.semdelion.presentation.views
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.semdelion.R
 import com.semdelion.databinding.FragmentMainBinding
+import com.semdelion.presentation.viewmodels.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -44,17 +43,6 @@ class MainFragment : Fragment() {
         viewBinding.mainViewModel = viewModel
 
         val view = viewBinding.root
-
-        val sendButton = view.findViewById<Button>(R.id.save_data_button)
-        val receiveButton = view.findViewById<Button>(R.id.get_data_button)
-
-        sendButton.setOnClickListener {
-            viewModel.save()
-        }
-
-        receiveButton.setOnClickListener {
-            viewModel.load()
-        }
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
