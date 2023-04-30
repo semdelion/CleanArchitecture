@@ -1,4 +1,4 @@
-package com.semdelion.presentation
+package com.semdelion.presentation.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

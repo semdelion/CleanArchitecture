@@ -1,5 +1,6 @@
 package com.semdelion.data.storages.models
 
+import androidx.room.Entity
 import kotlinx.serialization.Serializable
 
 @Serializable
