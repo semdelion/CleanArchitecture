@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.BindingAdapter
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputLayout
 import com.semdelion.presentation.views.MainFragment
 
@@ -22,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         Log.e("Activity", "created")
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
+            val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+            val navigationController = findNavController(R.id.fragmentContainerView)
+            bottomNavigationView.setupWithNavController(navigationController)
         }
     }
 }
