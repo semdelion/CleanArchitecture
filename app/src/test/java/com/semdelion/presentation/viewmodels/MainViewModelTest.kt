@@ -1,4 +1,4 @@
-package com.semdelion.presentation
+package com.semdelion.presentation.viewmodels
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
@@ -6,16 +6,15 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.semdelion.domain.models.User
 import com.semdelion.domain.usecases.GetUser
 import com.semdelion.domain.usecases.SaveUser
+import com.semdelion.presentation.viewmodels.MainViewModel
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.rules.TestRule
 import org.mockito.Mockito
-import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 

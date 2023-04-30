@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
-import com.semdelion.presentation.MainFragment
+import com.semdelion.presentation.views.MainFragment
 
 class MainActivity : AppCompatActivity() {
 

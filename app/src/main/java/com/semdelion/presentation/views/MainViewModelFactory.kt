@@ -1,4 +1,4 @@
-package com.semdelion.presentation
+package com.semdelion.presentation.views
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -7,6 +7,7 @@ import com.semdelion.data.repositories.UserRepository
 import com.semdelion.data.storages.SharedPrefUserStorage
 import com.semdelion.domain.usecases.GetUser
 import com.semdelion.domain.usecases.SaveUser
+import com.semdelion.presentation.viewmodels.MainViewModel
 
 class MainViewModelFactory(context: Context) : ViewModelProvider.Factory {
 
