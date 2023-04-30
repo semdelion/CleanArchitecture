@@ -17,6 +17,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.semdelion.R
 import com.semdelion.app.App
 import com.semdelion.databinding.FragmentMainBinding
+import com.semdelion.extensions.appComponent
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -34,7 +35,7 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().applicationContext as App).appComponent.inject(this)
+        appComponent.inject(this)
         viewModel = ViewModelProvider(this,viewModelFactory)[MainViewModel::class.java]
     }
 
