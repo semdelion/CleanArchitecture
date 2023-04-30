@@ -16,3 +16,4 @@ rootProject.name = "PetMvvm"
 include ':app'
 include ':data'
 include ':domain'
+include ':presentation_core'
