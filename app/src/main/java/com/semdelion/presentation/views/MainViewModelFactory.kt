@@ -1,9 +1,10 @@
-package com.semdelion.presentation
+package com.semdelion.presentation.views
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.semdelion.domain.usecases.GetUser
 import com.semdelion.domain.usecases.SaveUser
+import com.semdelion.presentation.viewmodels.MainViewModel
 
 class MainViewModelFactory(private val getUserUseCase: GetUser, private val saveUserUseCase: SaveUser)
     : ViewModelProvider.Factory {
