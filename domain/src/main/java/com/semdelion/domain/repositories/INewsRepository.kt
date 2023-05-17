@@ -1,7 +1,7 @@
 package com.semdelion.domain.repositories
 
-import com.semdelion.domain.models.NewsModel
+import com.semdelion.domain.models.News
 
 interface INewsRepository {
-    fun getNews(): List<NewsModel>
+    fun getNews(): List<News>
 }

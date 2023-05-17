@@ -1,11 +1,11 @@
 package com.semdelion.domain.repositories
 
-import com.semdelion.domain.models.NewsModel
+import com.semdelion.domain.models.News
 
 interface IFavoriteNewsRepository {
-    fun addFavoriteNews(news: NewsModel): Boolean
+    fun addFavoriteNews(news: News): Boolean
 
-    fun getFavoriteNews(): List<NewsModel>
+    fun getFavoriteNews(): List<News>
 
-    fun deleteFavoriteNews(key: NewsModel): Boolean
+    fun deleteFavoriteNews(key: News): Boolean
 }
