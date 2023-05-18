@@ -10,9 +10,11 @@ class NewsRepository(): BaseService(), INewsRepository {
     val newsServices = BaseService.retrofit.create(NewsServices::class.java)
 
     override fun getNews(): List<News> {
-        var newsModel = newsServices.getNews()
+        var response = newsServices.getNews()
+
+        var newsModel = response.execute()
         val news:MutableList<News> = mutableListOf()
-        newsModel.forEach { news.add( News(
+        newsModel.body()?.forEach { news.add( News(
             title = it.title,
             link = it.link,
             creator = it.category,

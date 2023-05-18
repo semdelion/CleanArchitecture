@@ -7,12 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.semdelion.R
 import com.semdelion.databinding.FragmentNewsBinding
 import com.semdelion.databinding.FragmentUserBinding
+import com.semdelion.domain.models.News
 import com.semdelion.presentation.viewmodels.FavoriteNewsViewModel
 import com.semdelion.presentation.viewmodels.MainViewModel
 import com.semdelion.presentation.viewmodels.NewsViewModel
+import com.semdelion.presentation.views.adapters.NewsRecyclerAdapter
 
 class NewsFragment : Fragment() {
 
@@ -31,13 +36,21 @@ class NewsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         viewBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false)
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
 
         val view = viewBinding.root
 
+        val recyclerView: RecyclerView = view.findViewById(R.id.news_recyclerview)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
+        val list = mutableListOf<News>()
+        val adapter = NewsRecyclerAdapter(mutableListOf())
+        recyclerView.adapter = adapter
+        viewModel.newsItems.observe(viewLifecycleOwner) {
+            adapter.setMovieList(it)
+        }
         return view
     }
 }
