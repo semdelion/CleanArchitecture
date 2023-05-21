@@ -2,6 +2,11 @@ package com.semdelion.data.services.models
 
 import com.google.gson.annotations.SerializedName
 
+data class NewsResult (
+    val status: String,
+    val results: List<NewsModel>
+)
+
 data class NewsModel (
     val title: String,
     val link: String,
@@ -11,7 +16,7 @@ data class NewsModel (
     @SerializedName("video_url")
     val videoURL: String? = null,
 
-    val description: String,
+    val description: String? = null,
     val content: String,
     val pubDate: String,
 
