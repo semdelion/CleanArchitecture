@@ -30,7 +30,9 @@ class NewsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
+        viewModel = ViewModelProvider(this,
+            NewsViewModelFactory()
+        )[NewsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -45,7 +47,6 @@ class NewsFragment : Fragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.news_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
-        val list = mutableListOf<News>()
         val adapter = NewsRecyclerAdapter(mutableListOf())
         recyclerView.adapter = adapter
         viewModel.newsItems.observe(viewLifecycleOwner) {

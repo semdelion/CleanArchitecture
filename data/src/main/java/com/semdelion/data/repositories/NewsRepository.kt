@@ -7,9 +7,10 @@ import com.semdelion.domain.repositories.INewsRepository
 
 class NewsRepository(): BaseService(), INewsRepository {
 
-    val newsServices = BaseService.retrofit.create(NewsServices::class.java)
+    private val newsServices = BaseService.retrofit.create(NewsServices::class.java)
 
     override fun getNews(): List<News> {
+
         var response = newsServices.getNews()
 
         var newsModel = response.execute()

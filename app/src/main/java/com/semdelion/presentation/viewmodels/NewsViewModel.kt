@@ -6,14 +6,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semdelion.domain.models.News
 import com.semdelion.domain.repositories.INewsRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class NewsViewModel(/*private val newsRepository: INewsRepository*/) : ViewModel() {
+class NewsViewModel(private val newsRepository: INewsRepository) : ViewModel() {
     private val _newsItems = MutableLiveData<MutableList<News>>()
     val newsItems: LiveData<MutableList<News>> = _newsItems
     init {
         val list = mutableListOf<News>()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val news = newsRepository.getNews()
+                val news2 = news
+            }
+            catch (ex: Exception) {
+                val exm = ex.message
+            }
+
+        }
         viewModelScope.launch {
             delay(2000)
             list.add(
