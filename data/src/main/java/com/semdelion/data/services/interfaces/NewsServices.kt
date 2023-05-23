@@ -3,8 +3,10 @@ package com.semdelion.data.services.interfaces
 import com.semdelion.data.services.models.NewsResult
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Query
 
 interface NewsServices {
-    @GET("1/news?apikey=pub_21221020bb9c580281896a2305077b7ffbe0f&language=ru")
-    fun getNews(): Call<NewsResult>
+    @GET("1/news")
+    fun getNews(@Query("language") language: String = "ru"): Call<NewsResult>
 }

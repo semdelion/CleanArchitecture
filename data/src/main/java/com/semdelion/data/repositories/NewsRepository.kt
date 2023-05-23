@@ -23,7 +23,7 @@ class NewsRepository(): BaseService(), INewsRepository {
             creator = it.category,
             videoURL = it.videoURL ?: "",
             description = it.description ?:"",
-            content = it.content,
+            content = it.content ?: "",
             pubDate = it.pubDate,
             imageURL = it.imageURL ?: "",
         )) }

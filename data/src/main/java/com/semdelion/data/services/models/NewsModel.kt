@@ -17,7 +17,7 @@ data class NewsModel (
     val videoURL: String? = null,
 
     val description: String? = null,
-    val content: String,
+    val content: String? = null,
     val pubDate: String,
 
     @SerializedName("image_url")
