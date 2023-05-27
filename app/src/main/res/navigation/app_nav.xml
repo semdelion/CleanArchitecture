@@ -9,7 +9,11 @@
         android:id="@+id/newsFragment"
         android:name="com.semdelion.presentation.views.NewsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.semdelion.presentation.views.MainFragment"
@@ -19,5 +23,14 @@
         android:id="@+id/favoriteNewsFragment"
         android:name="com.semdelion.presentation.views.FavoriteNewsFragment"
         android:label="fragment_favorite_news"
-        tools:layout="@layout/fragment_favorite_news" />
+        tools:layout="@layout/fragment_favorite_news" >
+        <action
+            android:id="@+id/action_favoriteNewsFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetailsFragment"
+        android:name="com.semdelion.presentation.views.NewsDetailsFragment"
+        android:label="fragment_news_details"
+        tools:layout="@layout/fragment_news_details" />
 </navigation>

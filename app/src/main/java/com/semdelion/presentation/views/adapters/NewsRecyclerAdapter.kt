@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +40,15 @@ class NewsRecyclerAdapter:
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.titleTextView.text = getItem(position).title
-        Glide.with(holder.itemView.context).load(getItem(position).imageURL).into(holder.imageView)
+
+        Glide.with(holder.itemView.context)
+            .load(getItem(position).imageURL)
+            .placeholder(R.drawable.ic_news_placeholder)
+            .into(holder.imageView)
+
+        holder.itemView.setOnClickListener {
+            it.findNavController().navigate(R.id.action_newsFragment_to_newsDetailsFragment)
+        }
     }
 }
 
