@@ -13,7 +13,8 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.semdelion.presentation.views.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_user"/>
     <fragment
         android:id="@+id/favoriteNewsFragment"
         android:name="com.semdelion.presentation.views.FavoriteNewsFragment"

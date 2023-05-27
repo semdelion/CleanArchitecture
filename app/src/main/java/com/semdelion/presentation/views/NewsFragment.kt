@@ -47,10 +47,10 @@ class NewsFragment : Fragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.news_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
-        val adapter = NewsRecyclerAdapter(mutableListOf())
+        val adapter = NewsRecyclerAdapter()
         recyclerView.adapter = adapter
         viewModel.newsItems.observe(viewLifecycleOwner) {
-            adapter.setMovieList(it)
+            adapter.submitList(it)
         }
         return view
     }
