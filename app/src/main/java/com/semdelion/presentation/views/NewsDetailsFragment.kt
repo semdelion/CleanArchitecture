@@ -31,9 +31,8 @@ class NewsDetailsFragment : Fragment() {
         viewBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news_details, container, false)
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
-        args.newsData?.let {
-            viewBinding.newsTitleTextView.text = it.id
-            //news_title_textView
+        args.newsItem?.let {
+            viewBinding.newsTitleTextView.text = it.title
         }
 
         val view = viewBinding.root
