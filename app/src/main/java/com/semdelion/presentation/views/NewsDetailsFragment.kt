@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.navArgs
 import com.semdelion.R
 import com.semdelion.databinding.FragmentNewsDetailsBinding
 import com.semdelion.presentation.viewmodels.NewsDetailsViewModel
@@ -20,6 +21,7 @@ class NewsDetailsFragment : Fragment() {
 
     private lateinit var viewModel: NewsDetailsViewModel
     private lateinit var viewBinding: FragmentNewsDetailsBinding
+    private val args: NewsDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +31,10 @@ class NewsDetailsFragment : Fragment() {
         viewBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news_details, container, false)
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
+        args.newsData?.let {
+            viewBinding.newsTitleTextView.text = it.id
+            //news_title_textView
+        }
 
         val view = viewBinding.root
 

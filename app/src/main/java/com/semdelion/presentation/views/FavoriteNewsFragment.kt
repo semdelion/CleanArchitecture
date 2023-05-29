@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.navArgs
 import com.semdelion.R
 import com.semdelion.databinding.FragmentFavoriteNewsBinding
 import com.semdelion.databinding.FragmentUserBinding
@@ -22,6 +23,8 @@ class FavoriteNewsFragment : Fragment() {
     private lateinit var viewModel: FavoriteNewsViewModel
     private lateinit var viewBinding: FragmentFavoriteNewsBinding
 
+    private val args: FavoriteNewsFragmentArgs by navArgs()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[FavoriteNewsViewModel::class.java]
@@ -34,7 +37,7 @@ class FavoriteNewsFragment : Fragment() {
         viewBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite_news, container, false)
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
-
+        //args.natasha?.id
         val view = viewBinding.root
 
         return view

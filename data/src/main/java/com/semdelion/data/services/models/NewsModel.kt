@@ -6,7 +6,6 @@ data class NewsResult (
     val status: String,
     val results: List<NewsModel>
 )
-
 data class NewsModel (
     val title: String,
     val link: String,

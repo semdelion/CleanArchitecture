@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.semdelion.R
 import com.semdelion.domain.models.News
+import com.semdelion.presentation.viewmodels.NewsModel2
+import com.semdelion.presentation.views.NewsFragmentDirections
 
 class NewsRecyclerAdapter:
     ListAdapter<News, NewsRecyclerAdapter.NewsViewHolder>(NewsComparator()) {
@@ -45,9 +47,9 @@ class NewsRecyclerAdapter:
             .load(getItem(position).imageURL)
             .placeholder(R.drawable.ic_news_placeholder)
             .into(holder.imageView)
-
         holder.itemView.setOnClickListener {
-            it.findNavController().navigate(R.id.action_newsFragment_to_newsDetailsFragment)
+            val directions = NewsFragmentDirections.actionNewsFragmentToNewsDetailsFragment(NewsModel2("555"))
+            it.findNavController().navigate(directions)
         }
     }
 }

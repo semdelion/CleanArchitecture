@@ -32,5 +32,9 @@
         android:id="@+id/newsDetailsFragment"
         android:name="com.semdelion.presentation.views.NewsDetailsFragment"
         android:label="fragment_news_details"
-        tools:layout="@layout/fragment_news_details" />
+        tools:layout="@layout/fragment_news_details" >
+        <argument
+            android:name="newsData"
+            app:argType="com.semdelion.presentation.viewmodels.NewsModel2" />
+    </fragment>
 </navigation>

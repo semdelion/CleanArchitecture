@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">PetMvvm</string>
-    <string name="save_data">Save Data</string>
-    <string name="get_data">Get Data</string>
 </resources>
