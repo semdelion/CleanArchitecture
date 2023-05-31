@@ -1,5 +1,6 @@
 package com.semdelion.data.services
 
+import com.google.gson.GsonBuilder
 import com.semdelion.data.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -41,11 +42,11 @@ abstract class BaseService {
             .addInterceptor(getLoggerInterceptor())
             .addInterceptor(getAuthInterceptor())
             .build()
-
+        private val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
         val retrofit = Retrofit.Builder()
                 .baseUrl(host)
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
     }
 }

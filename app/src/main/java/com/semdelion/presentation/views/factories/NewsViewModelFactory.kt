@@ -1,9 +1,8 @@
-package com.semdelion.presentation.views
+package com.semdelion.presentation.views.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.semdelion.data.repositories.NewsRepository
-import com.semdelion.presentation.viewmodels.MainViewModel
 import com.semdelion.presentation.viewmodels.NewsViewModel
 
 class NewsViewModelFactory(): ViewModelProvider.Factory  {

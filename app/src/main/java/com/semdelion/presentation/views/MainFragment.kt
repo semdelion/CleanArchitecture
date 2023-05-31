@@ -1,6 +1,5 @@
 package com.semdelion.presentation.views
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.semdelion.R
 import com.semdelion.databinding.FragmentUserBinding
 import com.semdelion.presentation.viewmodels.MainViewModel
+import com.semdelion.presentation.views.factories.MainViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

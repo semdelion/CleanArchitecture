@@ -1,4 +1,4 @@
-package com.semdelion.presentation.views
+package com.semdelion.presentation.views.factories
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

@@ -7,17 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.semdelion.R
 import com.semdelion.databinding.FragmentNewsBinding
-import com.semdelion.databinding.FragmentUserBinding
-import com.semdelion.domain.models.News
-import com.semdelion.presentation.viewmodels.FavoriteNewsViewModel
-import com.semdelion.presentation.viewmodels.MainViewModel
 import com.semdelion.presentation.viewmodels.NewsViewModel
 import com.semdelion.presentation.views.adapters.NewsRecyclerAdapter
+import com.semdelion.presentation.views.factories.NewsViewModelFactory
 
 class NewsFragment : Fragment() {
 
