@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style
+        name="Date.Item.Background"
+        parent="">
+        <item name="android:backgroundTint">#F5F5F5</item>
+        <item name="android:background">@drawable/background_item_rounded</item>
+    </style>
+    <style
+        name="Date.Icon"
+        parent="">
+        <item
+            name="android:tint">@color/colorPrimary</item>
+    </style>
+</resources>

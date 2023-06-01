@@ -22,7 +22,6 @@ class NewsViewModel(private val newsRepository: INewsRepository) : ViewModel() {
             catch (ex: Exception) {
                 val exm = ex.message
             }
-
         }
     }
 }
