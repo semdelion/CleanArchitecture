@@ -48,10 +48,10 @@ class NewsRecyclerAdapter:
             .into(holder.imageView)
 
         holder.itemView.setOnClickListener {
-            val navArg = NewsNavigationArg(getItem(position).title,
+            val navArg = NewsNavigationArg(
+                getItem(position).title,
                 getItem(position).link,
                 getItem(position).creator,
-                getItem(position).description,
                 getItem(position).content,
                 getItem(position).pubDate,
                 getItem(position).imageURL)

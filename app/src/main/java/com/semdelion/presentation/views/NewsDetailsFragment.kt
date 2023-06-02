@@ -1,22 +1,21 @@
 package com.semdelion.presentation.views
 
-import android.opengl.Visibility
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
+import android.view.View.generateViewId
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.semdelion.R
 import com.semdelion.databinding.FragmentNewsDetailsBinding
-import com.semdelion.presentation.viewmodels.MainViewModel
 import com.semdelion.presentation.viewmodels.NewsDetailsViewModel
-import com.semdelion.presentation.viewmodels.NewsViewModel
-import com.semdelion.presentation.views.factories.MainViewModelFactory
 import com.semdelion.presentation.views.factories.NewsDetailsViewModelFactory
 
 class NewsDetailsFragment : Fragment() {
@@ -48,9 +47,16 @@ class NewsDetailsFragment : Fragment() {
             viewBinding.newsDetailsImageview.visibility = GONE
         }
 
-        val view = viewBinding.root
+        for (creator in viewModel.creators) {
+            val creatorView = inflater.inflate(R.layout._template_creator, viewBinding.newsDetailsConstraint, false)
+            creatorView.id = generateViewId()
+            creatorView.findViewById<TextView>(R.id.creator).text = creator
+            viewBinding.newsDetailsConstraint.addView(creatorView)
+            viewBinding.creatorsFlow.addView(creatorView)
+        }
 
-        return view;
+        //viewBinding.linkText.movementMethod = LinkMovementMethod.getInstance()
+        return viewBinding.root;
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

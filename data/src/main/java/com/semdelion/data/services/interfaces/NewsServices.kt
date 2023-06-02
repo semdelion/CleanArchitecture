@@ -8,5 +8,5 @@ import retrofit2.http.Query
 
 interface NewsServices {
     @GET("1/news")
-    fun getNews(@Query("language") language: String = "ru"): Call<NewsResult>
+    fun getNews(@Query("language") language: String = "en"): Call<NewsResult>
 }

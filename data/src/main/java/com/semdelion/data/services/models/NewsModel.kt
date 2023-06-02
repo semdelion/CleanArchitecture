@@ -10,7 +10,7 @@ data class NewsModel (
     val title: String,
     val link: String,
     val keywords: List<String>,
-    val creator: List<String>,
+    val creator: List<String>?,
 
     @SerializedName("video_url")
     val videoURL: String? = null,

@@ -15,12 +15,10 @@ class NewsDetailsViewModel(private val newsNavigationArg: NewsNavigationArg) : V
     private val _contentLive = MutableLiveData(newsNavigationArg.content)
     val contentLive: LiveData<String> = _contentLive
 
-    private val _dateLive = MutableLiveData(newsNavigationArg.pubDate.toString())
+    private val _dateLive = MutableLiveData(newsNavigationArg.pubDate)
     val dateLive: LiveData<String> = _dateLive
 
-   /* private val _titleLive = MutableLiveData(newsNavigationArg.title)
-    val titleLive: LiveData<String> = _titleLive
+    val creators: List<String> = newsNavigationArg.creator
 
-    private val _titleLive = MutableLiveData(newsNavigationArg.title)
-    val titleLive: LiveData<String> = _titleLive*/
+    val link: String = newsNavigationArg.link
 }

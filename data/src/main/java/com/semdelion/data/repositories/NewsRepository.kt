@@ -12,7 +12,7 @@ class NewsRepository(): BaseService(), INewsRepository {
 
     override fun getNews(): List<News> {
 
-        var response = newsServices.getNews().execute()
+        val response = newsServices.getNews().execute()
 
         val newsModel = response.body()?.results ?: mutableListOf()
 
@@ -20,7 +20,7 @@ class NewsRepository(): BaseService(), INewsRepository {
         newsModel.forEach { news.add( News(
             title = it.title,
             link = it.link,
-            creator = it.category,
+            creator = it.creator ?: listOf(),
             videoURL = it.videoURL ?: "",
             description = it.description ?:"",
             content = it.content ?: "",

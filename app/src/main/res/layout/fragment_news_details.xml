@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/main"
+            android:id="@+id/news_details_constraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".presentation.views.MainFragment">
@@ -73,8 +73,24 @@
                     tools:text="C 1.05.2021 1111" />
             </LinearLayout>
 
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/creators_flow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:flow_wrapMode="chain"
+                app:flow_horizontalBias="0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:flow_horizontalStyle="packed"
+                app:flow_verticalStyle="packed"
+                app:flow_horizontalGap="8dp"
+                app:flow_verticalGap="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date_time_layout" />
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/content_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -84,7 +100,21 @@
                 tools:text="тут очень много текста"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/date_time_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/creators_flow" />
+            <TextView
+                android:id="@+id/link_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:text="@{vm.link}"
+                tools:text="link"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/content_text" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
