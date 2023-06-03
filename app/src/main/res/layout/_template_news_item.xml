@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data>
-    </data>
+
+    <data></data>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/news_items_cardView"
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="16dp"
-        tools:viewBindingIgnore="true" >
+        tools:viewBindingIgnore="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -40,11 +40,11 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:ellipsize="end"
                 android:lines="2"
                 android:maxLines="2"
                 android:textColor="#333333"
                 android:textSize="19sp"
-                android:ellipsize="end"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

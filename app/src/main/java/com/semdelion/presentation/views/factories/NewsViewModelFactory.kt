@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.semdelion.data.repositories.NewsRepository
 import com.semdelion.presentation.viewmodels.NewsViewModel
 
-class NewsViewModelFactory(): ViewModelProvider.Factory  {
+class NewsViewModelFactory() : ViewModelProvider.Factory {
 
     private val newsRepository by lazy {
         NewsRepository()

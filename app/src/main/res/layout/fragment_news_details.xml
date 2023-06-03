@@ -2,18 +2,24 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <variable name="vm"
-            type="com.semdelion.presentation.viewmodels.NewsDetailsViewModel"/>
+
+        <variable
+            name="vm"
+            type="com.semdelion.presentation.viewmodels.NewsDetailsViewModel" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/news_details_constraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".presentation.views.MainFragment">
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/news_details_imageview"
                 android:layout_width="match_parent"
@@ -30,13 +36,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:textSize="21sp"
+                android:text="@{vm.titleLive}"
                 android:textColor="@color/black"
+                android:textSize="21sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/news_details_imageview"
-                tools:text="Title"
-                android:text="@{vm.titleLive}"/>
+                tools:text="Title" />
 
             <LinearLayout
                 android:id="@+id/date_time_layout"
@@ -80,15 +86,16 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                app:flow_wrapMode="chain"
                 app:flow_horizontalBias="0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:flow_horizontalStyle="packed"
-                app:flow_verticalStyle="packed"
                 app:flow_horizontalGap="8dp"
+                app:flow_horizontalStyle="packed"
                 app:flow_verticalGap="8dp"
+                app:flow_verticalStyle="packed"
+                app:flow_wrapMode="chain"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/date_time_layout" />
+
             <TextView
                 android:id="@+id/content_text"
                 android:layout_width="0dp"
@@ -97,10 +104,11 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@{vm.contentLive}"
-                tools:text="тут очень много текста"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/creators_flow" />
+                app:layout_constraintTop_toBottomOf="@+id/creators_flow"
+                tools:text="тут очень много текста" />
+
             <TextView
                 android:id="@+id/link_text"
                 android:layout_width="0dp"
@@ -111,10 +119,10 @@
                 android:autoLink="web"
                 android:linksClickable="true"
                 android:text="@{vm.link}"
-                tools:text="link"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/content_text" />
+                app:layout_constraintTop_toBottomOf="@+id/content_text"
+                tools:text="link" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

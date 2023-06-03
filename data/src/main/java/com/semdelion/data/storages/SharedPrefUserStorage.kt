@@ -9,16 +9,16 @@ import kotlinx.serialization.json.Json
 private const val SHARED_NAME_USER_DB = "shared_preferences_bd"
 private const val USER_TEST = "user_test"
 
-class SharedPrefUserStorage(private val context: Context): IUserStorage {
+class SharedPrefUserStorage(private val context: Context) : IUserStorage {
 
-    private val sharedPreferences = context.getSharedPreferences(SHARED_NAME_USER_DB, Context.MODE_PRIVATE)
+    private val sharedPreferences =
+        context.getSharedPreferences(SHARED_NAME_USER_DB, Context.MODE_PRIVATE)
 
     override fun save(user: UserModel): Boolean {
         try {
             val json = Json.encodeToString(user)
             sharedPreferences.edit().putString(USER_TEST, json).apply()
-        }
-        catch (ex: Exception) {
+        } catch (ex: Exception) {
             return false
             //TODO add error logs
         }
@@ -28,12 +28,11 @@ class SharedPrefUserStorage(private val context: Context): IUserStorage {
 
     override fun get(): UserModel {
         val jsonUser = sharedPreferences.getString(USER_TEST, "")
-        var user = UserModel("","")
+        var user = UserModel("", "")
         jsonUser?.let {
             try {
                 user = Json.decodeFromString<UserModel>(it)
-            }
-            catch (ex: Exception) {
+            } catch (ex: Exception) {
                 //TODO add error logs
             }
         }

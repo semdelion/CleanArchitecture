@@ -29,7 +29,8 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this,
+        viewModel = ViewModelProvider(
+            this,
             MainViewModelFactory(requireContext().applicationContext)
         )[MainViewModel::class.java]
     }

@@ -32,7 +32,7 @@ class MainViewModelTest {
 
     @BeforeEach
     fun beforeEach() {
-        ArchTaskExecutor.getInstance().setDelegate(object : TaskExecutor(){
+        ArchTaskExecutor.getInstance().setDelegate(object : TaskExecutor() {
             override fun executeOnDiskIO(runnable: Runnable) {
                 runnable.run()
             }
@@ -46,6 +46,7 @@ class MainViewModelTest {
             }
         })
     }
+
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
@@ -63,7 +64,7 @@ class MainViewModelTest {
         //TODO надо дописать нормально тест
         val expected = "true"
         val actual = "true"
-        Assertions.assertEquals(expected,actual)
+        Assertions.assertEquals(expected, actual)
         Mockito.verify(saveUserUseCase, times(1)).execute(testUser)
     }
 

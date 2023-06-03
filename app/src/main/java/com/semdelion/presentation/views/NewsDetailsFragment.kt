@@ -33,22 +33,26 @@ class NewsDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        viewBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news_details, container, false)
+        viewBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_news_details, container, false)
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
 
-        if(viewModel.imageUrl.isNotEmpty()) {
+        if (viewModel.imageUrl.isNotEmpty()) {
             Glide.with(requireContext().applicationContext)
                 .load(viewModel.imageUrl)
                 .placeholder(R.drawable.ic_news_placeholder)
                 .into(viewBinding.newsDetailsImageview)
-        }
-        else {
+        } else {
             viewBinding.newsDetailsImageview.visibility = GONE
         }
 
         for (creator in viewModel.creators) {
-            val creatorView = inflater.inflate(R.layout._template_creator, viewBinding.newsDetailsConstraint, false)
+            val creatorView = inflater.inflate(
+                R.layout._template_creator,
+                viewBinding.newsDetailsConstraint,
+                false
+            )
             creatorView.id = generateViewId()
             creatorView.findViewById<TextView>(R.id.creator).text = creator
             viewBinding.newsDetailsConstraint.addView(creatorView)
@@ -60,9 +64,10 @@ class NewsDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this,
+        viewModel = ViewModelProvider(
+            this,
             NewsDetailsViewModelFactory(args.newsItem)
         )[NewsDetailsViewModel::class.java]
-       //TODO https://stackoverflow.com/questions/67350331/how-to-use-hilt-to-inject-a-safe-args-argument-into-a-viewmodel
+        //TODO https://stackoverflow.com/questions/67350331/how-to-use-hilt-to-inject-a-safe-args-argument-into-a-viewmodel
     }
 }

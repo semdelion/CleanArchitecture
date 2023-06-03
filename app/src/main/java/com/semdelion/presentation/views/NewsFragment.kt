@@ -26,7 +26,8 @@ class NewsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this,
+        viewModel = ViewModelProvider(
+            this,
             NewsViewModelFactory()
         )[NewsViewModel::class.java]
     }

@@ -16,15 +16,15 @@ abstract class BaseService {
     companion object {
         private var host = "https://newsdata.io/api/"
 
-        private fun getLoggerInterceptor() : HttpLoggingInterceptor {
+        private fun getLoggerInterceptor(): HttpLoggingInterceptor {
             val interceptor = HttpLoggingInterceptor()
-            if(BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 interceptor.level = HttpLoggingInterceptor.Level.BODY
             }
             return interceptor
         }
 
-        private fun getAuthInterceptor() : Interceptor {
+        private fun getAuthInterceptor(): Interceptor {
             return object : Interceptor {
                 override fun intercept(chain: Interceptor.Chain): Response {
                     val original: Request = chain.request()
@@ -44,9 +44,9 @@ abstract class BaseService {
             .build()
         private val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
         val retrofit = Retrofit.Builder()
-                .baseUrl(host)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
+            .baseUrl(host)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
     }
 }

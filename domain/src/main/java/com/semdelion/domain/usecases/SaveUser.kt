@@ -10,7 +10,7 @@ class SaveUser(private val repository: IUserRepository) {
             return false
 
         val oldUser = repository.getUser()
-        
+
         if (oldUser == user)
             return true
 

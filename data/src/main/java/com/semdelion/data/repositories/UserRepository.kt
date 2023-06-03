@@ -5,7 +5,7 @@ import com.semdelion.data.storages.models.UserModel
 import com.semdelion.domain.models.User
 import com.semdelion.domain.repositories.IUserRepository
 
-class UserRepository(private val userStorage: IUserStorage): IUserRepository {
+class UserRepository(private val userStorage: IUserStorage) : IUserRepository {
 
     override fun saveUser(user: User): Boolean {
         val userModel = UserModel(firstName = user.firstName, lastName = user.lastName)

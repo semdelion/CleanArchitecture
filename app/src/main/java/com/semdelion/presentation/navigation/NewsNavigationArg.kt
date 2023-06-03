@@ -10,4 +10,5 @@ data class NewsNavigationArg(
     val creator: List<String>,
     val content: String,
     val pubDate: String,
-    val imageURL: String) : Parcelable
+    val imageURL: String
+) : Parcelable

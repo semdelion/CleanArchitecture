@@ -13,13 +13,13 @@ import kotlinx.coroutines.launch
 class NewsViewModel(private val newsRepository: INewsRepository) : ViewModel() {
     private val _newsItems = MutableLiveData<MutableList<News>>()
     val newsItems: LiveData<MutableList<News>> = _newsItems
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val news = newsRepository.getNews()
                 _newsItems.postValue(news.toMutableList())
-            }
-            catch (ex: Exception) {
+            } catch (ex: Exception) {
                 val exm = ex.message
             }
         }

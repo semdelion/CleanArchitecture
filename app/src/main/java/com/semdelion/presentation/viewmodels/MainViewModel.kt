@@ -17,10 +17,10 @@ class MainViewModel(private val getUser: GetUser, private val saveUser: SaveUser
     val loadedUserLive: LiveData<String> = _loadedUserLive
 
     private val _errorFirstNameLive = MutableLiveData<String>("")
-    val errorFirstNameLive:LiveData<String> = _errorFirstNameLive
+    val errorFirstNameLive: LiveData<String> = _errorFirstNameLive
 
     private val _errorLastNameLive = MutableLiveData<String>("")
-    val errorLastNameLive:LiveData<String> = _errorLastNameLive
+    val errorLastNameLive: LiveData<String> = _errorLastNameLive
 
     val firstNameLive = MutableLiveData<String>("")
     val lastNameLive = MutableLiveData<String>("")
@@ -41,7 +41,7 @@ class MainViewModel(private val getUser: GetUser, private val saveUser: SaveUser
                     lastName = lastNameLive.value ?: ""
                 )
             )
-            _useCaseState.emit(if(result) "Successful save!" else "Failure save!")
+            _useCaseState.emit(if (result) "Successful save!" else "Failure save!")
         }
 
     }
@@ -50,7 +50,7 @@ class MainViewModel(private val getUser: GetUser, private val saveUser: SaveUser
         viewModelScope.launch {
             val user = getUser.execute()
             _loadedUserLive.value = "${user.firstName}, ${user.lastName}"
-            if(user.firstName.isEmpty() and user.lastName.isEmpty())
+            if (user.firstName.isEmpty() and user.lastName.isEmpty())
                 _useCaseState.emit("DB is empty")
         }
     }

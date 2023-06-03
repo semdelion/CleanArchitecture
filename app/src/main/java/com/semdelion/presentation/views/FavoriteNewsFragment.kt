@@ -32,12 +32,15 @@ class FavoriteNewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite_news, container, false)
+        viewBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_favorite_news,
+            container,
+            false
+        )
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
 
-        val view = viewBinding.root
-
-        return view
+        return viewBinding.root
     }
 }

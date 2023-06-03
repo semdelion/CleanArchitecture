@@ -15,12 +15,12 @@ import com.semdelion.domain.models.News
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.views.NewsFragmentDirections
 
-class NewsRecyclerAdapter:
+class NewsRecyclerAdapter :
     ListAdapter<News, NewsRecyclerAdapter.NewsViewHolder>(NewsComparator()) {
 
     private lateinit var bindingView: TemplateNewsItemBinding
 
-    class NewsComparator: DiffUtil.ItemCallback<News>() {
+    class NewsComparator : DiffUtil.ItemCallback<News>() {
         override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
@@ -56,7 +56,8 @@ class NewsRecyclerAdapter:
                 getItem(position).creator,
                 getItem(position).content,
                 getItem(position).pubDate,
-                getItem(position).imageURL)
+                getItem(position).imageURL
+            )
             val directions = NewsFragmentDirections.actionNewsFragmentToNewsDetailsFragment(navArg)
             it.findNavController().navigate(directions)
         }

@@ -33,12 +33,19 @@ class MainActivity : AppCompatActivity() {
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
 
         viewBinding.bottomNavigationView.setupWithNavController(navController)
         setSupportActionBar(viewBinding.mainToolbar)
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.newsFragment, R.id.favoriteNewsFragment,  R.id.mainFragment))
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.newsFragment,
+                R.id.favoriteNewsFragment,
+                R.id.mainFragment
+            )
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
@@ -47,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-       // menuInflater.inflate(R.menu.main_menu, menu)
+        // menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

@@ -16,7 +16,7 @@ class SaveUserTest {
     private val userRepository = mock<IUserRepository>()
 
     @AfterEach
-    fun clearData(){
+    fun clearData() {
         Mockito.reset(userRepository)
     }
 
@@ -50,7 +50,8 @@ class SaveUserTest {
 
         val saveUserUseCase = SaveUser(repository = userRepository)
 
-        val actual = saveUserUseCase.execute(user = User(firstName = "firstName", lastName = "lastName"))
+        val actual =
+            saveUserUseCase.execute(user = User(firstName = "firstName", lastName = "lastName"))
         assertEquals(true, actual)
         Mockito.verify(userRepository, Mockito.never()).saveUser(any())
     }
@@ -61,7 +62,7 @@ class SaveUserTest {
         Mockito.`when`(userRepository.getUser()).thenReturn(testUser)
 
         val expected = true
-        val currentUser =  User(firstName = "newFirstName", lastName = "newLastName")
+        val currentUser = User(firstName = "newFirstName", lastName = "newLastName")
         Mockito.`when`(userRepository.saveUser(currentUser)).thenReturn(expected)
 
         val saveUserUseCase = SaveUser(repository = userRepository)
@@ -77,7 +78,7 @@ class SaveUserTest {
         Mockito.`when`(userRepository.getUser()).thenReturn(testUser)
 
         val expected = false
-        val currentUser =  User(firstName = "newFirstName", lastName = "newLastName")
+        val currentUser = User(firstName = "newFirstName", lastName = "newLastName")
         Mockito.`when`(userRepository.saveUser(currentUser)).thenReturn(expected)
 
         val saveUserUseCase = SaveUser(repository = userRepository)

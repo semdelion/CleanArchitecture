@@ -2,10 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <variable name="vm"
-            type="com.semdelion.presentation.viewmodels.NewsViewModel"/>
+
+        <variable
+            name="vm"
+            type="com.semdelion.presentation.viewmodels.NewsViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/newsConstraint"
         android:layout_width="match_parent"
@@ -16,12 +20,12 @@
             android:id="@+id/news_recyclerview"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            tools:listitem="@layout/_template_news_item"
-            tools:itemCount="5"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="5"
+            tools:listitem="@layout/_template_news_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
