@@ -55,7 +55,6 @@ class NewsDetailsFragment : Fragment() {
             viewBinding.creatorsFlow.addView(creatorView)
         }
 
-        //viewBinding.linkText.movementMethod = LinkMovementMethod.getInstance()
         return viewBinding.root;
     }
 
