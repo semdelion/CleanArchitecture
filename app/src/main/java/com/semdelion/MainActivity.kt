@@ -52,14 +52,4 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration)
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // menuInflater.inflate(R.menu.main_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //val navController = findNavController(R.id.fragmentContainerView)
-        return super.onOptionsItemSelected(item)
-    }
 }

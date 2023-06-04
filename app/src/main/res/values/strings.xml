@@ -6,4 +6,6 @@
     <string name="toolbar_title_news">News</string>
     <string name="toolbar_title_favorite_news">Favorite news</string>
     <string name="toolbar_title_users">Users</string>
+    <string name="remove_news">menu_remove_news</string>
+    <string name="add_favorite">menu_save_news</string>
 </resources>

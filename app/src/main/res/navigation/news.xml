@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/newsDetailsFragment"
         android:name="com.semdelion.presentation.views.NewsDetailsFragment"
-        android:label="fragment_news_details"
+        android:label="@string/toolbar_title_news"
         tools:layout="@layout/fragment_news_details">
         <argument
             android:name="newsItem"
