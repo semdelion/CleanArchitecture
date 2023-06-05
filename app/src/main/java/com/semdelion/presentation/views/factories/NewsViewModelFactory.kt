@@ -3,6 +3,8 @@ package com.semdelion.presentation.views.factories
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.semdelion.data.repositories.NewsRepository
+import com.semdelion.domain.usecases.GetUser
+import com.semdelion.domain.usecases.news.GetNews
 import com.semdelion.presentation.viewmodels.NewsViewModel
 
 class NewsViewModelFactory() : ViewModelProvider.Factory {
@@ -11,9 +13,13 @@ class NewsViewModelFactory() : ViewModelProvider.Factory {
         NewsRepository()
     }
 
+    private val getUser by lazy {
+        GetNews(newsRepository = newsRepository)
+    }
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(NewsViewModel::class.java)) {
-            return NewsViewModel(newsRepository) as T
+            return NewsViewModel(getUser) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

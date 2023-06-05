@@ -43,7 +43,6 @@ class MainViewModel(private val getUser: GetUser, private val saveUser: SaveUser
             )
             _useCaseState.emit(if (result) "Successful save!" else "Failure save!")
         }
-
     }
 
     fun load() {
