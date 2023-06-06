@@ -1,5 +1,6 @@
 package com.semdelion.data.storages
 
+import com.semdelion.data.storages.IUserStorage
 import com.semdelion.data.storages.models.UserModel
 
 class RoomUserStorage : IUserStorage {
