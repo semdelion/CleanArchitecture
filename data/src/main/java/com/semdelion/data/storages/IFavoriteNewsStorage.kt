@@ -1,9 +1,9 @@
 package com.semdelion.data.storages
 
-import java.util.Objects
+import com.semdelion.data.storages.room.favorite.news.FavoriteNewsEntity
 
 interface IFavoriteNewsStorage {
-    fun getNews(): List<Objects>
-    fun addNews(objects: Objects) : Boolean
-    fun deleteNews(objects: Objects) : Boolean
+    suspend fun getNews(): List<FavoriteNewsEntity>
+    suspend fun addNews(news: FavoriteNewsEntity) : Boolean
+    suspend fun deleteNews(news: FavoriteNewsEntity) : Boolean
 }

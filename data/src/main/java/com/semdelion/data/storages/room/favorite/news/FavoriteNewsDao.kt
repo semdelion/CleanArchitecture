@@ -8,11 +8,11 @@ import androidx.room.Query
 @Dao
 interface FavoriteNewsDao {
     @Query("SELECT * from favorite_news_table")
-    fun getFavoriteNews(): List<FavoriteNewsEntity>
+    suspend fun getFavoriteNews(): List<FavoriteNewsEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(favoriteNews: FavoriteNewsEntity)
+    suspend fun insert(favoriteNews: FavoriteNewsEntity): Long
 
-    @Query("DELETE FROM favorite_news_table WHERE hashcode = :id")
-    fun deleteFavoriteNewsById(id: String)
+    @Query("DELETE FROM favorite_news_table WHERE id = :id")
+    suspend fun deleteById(id: String)
 }

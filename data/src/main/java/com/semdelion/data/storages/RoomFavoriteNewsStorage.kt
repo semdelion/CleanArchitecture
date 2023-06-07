@@ -1,19 +1,25 @@
 package com.semdelion.data.storages
 
-import com.semdelion.data.storages.IFavoriteNewsStorage
-import java.util.Objects
+import com.semdelion.data.storages.room.favorite.news.FavoriteNewsDao
+import com.semdelion.data.storages.room.favorite.news.FavoriteNewsEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class RoomFavoriteNewsStorage(): IFavoriteNewsStorage {
-    override fun getNews(): List<Objects> {
-        TODO("Not yet implemented")
+class RoomFavoriteNewsStorage(private val favoriteNewsDao: FavoriteNewsDao): IFavoriteNewsStorage {
+    override suspend fun getNews(): List<FavoriteNewsEntity> {
+        return withContext(Dispatchers.IO) {
+            return@withContext favoriteNewsDao.getFavoriteNews()
+        }
     }
 
-    override fun addNews(objects: Objects): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun addNews(news: FavoriteNewsEntity): Boolean {
+        return withContext(Dispatchers.IO) {
+            val result = favoriteNewsDao.insert(news)
+            return@withContext true
+        }
     }
 
-    override fun deleteNews(objects: Objects): Boolean {
+    override suspend fun deleteNews(news: FavoriteNewsEntity): Boolean {
         TODO("Not yet implemented")
     }
-
 }

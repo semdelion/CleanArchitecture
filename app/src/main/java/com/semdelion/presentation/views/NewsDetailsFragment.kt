@@ -13,12 +13,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.semdelion.R
 import com.semdelion.databinding.FragmentNewsDetailsBinding
 import com.semdelion.presentation.viewmodels.NewsDetailsViewModel
 import com.semdelion.presentation.views.factories.NewsDetailsViewModelFactory
+import kotlinx.coroutines.launch
 
 class NewsDetailsFragment : Fragment(), MenuProvider {
 
@@ -33,7 +35,7 @@ class NewsDetailsFragment : Fragment(), MenuProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(
-            this, NewsDetailsViewModelFactory(args.newsItem)
+            this, NewsDetailsViewModelFactory(args.newsItem, requireContext().applicationContext)
         )[NewsDetailsViewModel::class.java]
         //TODO https://stackoverflow.com/questions/67350331/how-to-use-hilt-to-inject-a-safe-args-argument-into-a-viewmodel
     }
@@ -85,8 +87,13 @@ class NewsDetailsFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         val id = menuItem.itemId
         if (id == R.id.add_to_favorite_news) {
-            //Toast.makeText(this.context,"add",Toast.LENGTH_SHORT).show()
-            this.context?.let {
+            lifecycleScope.launch {
+                viewModel.addToFavoriteNews()
+
+                Toast.makeText(context, "add", Toast.LENGTH_SHORT)
+                    .show()
+            }
+          /*  this.context?.let {
                 val builder = AlertDialog.Builder(it)
                 builder.setTitle("Delete")
                 builder.setMessage("Delete news?")
@@ -101,7 +108,7 @@ class NewsDetailsFragment : Fragment(), MenuProvider {
                 // Set other dialog properties
                 alertDialog.setCancelable(false)
                 alertDialog.show()
-            }
+            }*/
         }
         return false
     }

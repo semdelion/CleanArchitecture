@@ -3,14 +3,21 @@ package com.semdelion.presentation.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.semdelion.data.storages.room.AppDatabase
+import com.semdelion.domain.models.News
+import com.semdelion.domain.usecases.news.GetFavoriteNews
 import com.semdelion.domain.usecases.news.SaveNews
 import com.semdelion.presentation.navigation.NewsNavigationArg
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 
 class NewsDetailsViewModel(
     private val newsNavigationArg: NewsNavigationArg,
-    private val saveNews: SaveNews
+    private val saveNews: SaveNews,
+    private val getFavoriteNews: GetFavoriteNews
 ) : ViewModel() {
 
     val imageUrl: String = newsNavigationArg.imageURL
@@ -31,9 +38,24 @@ class NewsDetailsViewModel(
     private val _saveNewsState = MutableSharedFlow<String>()
     val saveNewsState = _saveNewsState.asSharedFlow()
 
-    public fun addToFavoriteNews(): Boolean {
-        val result = saveNews.saveNews()
+    public fun addToFavoriteNews() {
+        viewModelScope.launch(Dispatchers.IO) {
+           /* val result = saveNews.saveNews(
+                News(
+                    title = newsNavigationArg.title,
+                    link = newsNavigationArg.link,
+                    creator = newsNavigationArg.creator,
+                    videoURL = "",
+                    description = "",
+                    content = newsNavigationArg.content,
+                    pubDate = newsNavigationArg.pubDate,
+                    imageURL = newsNavigationArg.imageURL
+                )
+            )*/
 
-        return result
+            val result2 = getFavoriteNews.getFavoriteNews()
+
+             val result4 = result2
+        }
     }
 }
