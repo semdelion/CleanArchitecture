@@ -7,5 +7,5 @@ interface IFavoriteNewsRepository {
 
     suspend fun getFavoriteNews(): List<News>
 
-    fun deleteFavoriteNews(key: News): Boolean
+    suspend fun deleteFavoriteNews(key: News): Boolean
 }

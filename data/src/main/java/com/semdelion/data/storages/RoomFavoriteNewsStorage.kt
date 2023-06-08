@@ -15,11 +15,14 @@ class RoomFavoriteNewsStorage(private val favoriteNewsDao: FavoriteNewsDao): IFa
     override suspend fun addNews(news: FavoriteNewsEntity): Boolean {
         return withContext(Dispatchers.IO) {
             val result = favoriteNewsDao.insert(news)
-            return@withContext true
+            return@withContext result>0
         }
     }
 
-    override suspend fun deleteNews(news: FavoriteNewsEntity): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun deleteNews(id: Int): Boolean {
+        return withContext(Dispatchers.IO) {
+            val result = favoriteNewsDao.deleteById(id)
+            return@withContext result>0
+        }
     }
 }

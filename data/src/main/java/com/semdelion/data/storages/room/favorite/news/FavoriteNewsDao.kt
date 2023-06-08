@@ -14,5 +14,5 @@ interface FavoriteNewsDao {
     suspend fun insert(favoriteNews: FavoriteNewsEntity): Long
 
     @Query("DELETE FROM favorite_news_table WHERE id = :id")
-    suspend fun deleteById(id: String)
+    suspend fun deleteById(id: Int): Int
 }

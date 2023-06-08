@@ -4,8 +4,7 @@ import com.semdelion.domain.models.News
 import com.semdelion.domain.repositories.IFavoriteNewsRepository
 
 class DeleteNews(private val favoriteNews: IFavoriteNewsRepository) {
-
-    fun deleteFavoriteNews(newsModel: News): Boolean {
-        return false
+    suspend fun delete(news: News): Boolean {
+        return favoriteNews.deleteFavoriteNews(news)
     }
 }

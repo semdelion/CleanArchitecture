@@ -1,7 +1,5 @@
 package com.semdelion.data.repositories
 
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
 import com.semdelion.data.storages.IFavoriteNewsStorage
 import com.semdelion.data.storages.room.favorite.news.FavoriteNewsEntity
 import com.semdelion.domain.models.News
@@ -15,7 +13,7 @@ class FavoriteNewsRepository(private val favoriteNewsStorage: IFavoriteNewsStora
             id = news.hashCode(),
             title = news.title,
             link = news.link,
-            //creator = news.creator,
+            creator = news.creator,
             content = news.content,
             pubDate = news.pubDate,
             imageURL = news.imageURL,
@@ -36,8 +34,7 @@ class FavoriteNewsRepository(private val favoriteNewsStorage: IFavoriteNewsStora
                     News(
                         title = item.title,
                         link = item.link,
-                        //TODO
-                        creator = listOf(),
+                        creator = item.creator,
                         videoURL = "",
                         description = "",
                         content = item.content,
@@ -51,7 +48,8 @@ class FavoriteNewsRepository(private val favoriteNewsStorage: IFavoriteNewsStora
 
     }
 
-    override fun deleteFavoriteNews(key: News): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun deleteFavoriteNews(key: News): Boolean {
+        val result = favoriteNewsStorage.deleteNews(key.hashCode())
+        return result
     }
 }

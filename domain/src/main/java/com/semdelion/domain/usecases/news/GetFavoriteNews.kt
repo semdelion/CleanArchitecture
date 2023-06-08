@@ -5,7 +5,6 @@ import com.semdelion.domain.repositories.IFavoriteNewsRepository
 
 class GetFavoriteNews(private val favoriteNews: IFavoriteNewsRepository) {
     suspend fun getFavoriteNews(): List<News> {
-        val result = favoriteNews.getFavoriteNews()
-        return result
+        return favoriteNews.getFavoriteNews()
     }
 }

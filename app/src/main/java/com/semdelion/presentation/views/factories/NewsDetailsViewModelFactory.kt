@@ -28,13 +28,9 @@ class NewsDetailsViewModelFactory(private val navArg: NewsNavigationArg, context
         SaveNews(favoriteNews = favoriteNews)
     }
 
-    private val getFavoriteNews by lazy {
-        GetFavoriteNews(favoriteNews = favoriteNews)
-    }
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(NewsDetailsViewModel::class.java)) {
-            return NewsDetailsViewModel(navArg, saveNews, getFavoriteNews) as T
+            return NewsDetailsViewModel(navArg, saveNews) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

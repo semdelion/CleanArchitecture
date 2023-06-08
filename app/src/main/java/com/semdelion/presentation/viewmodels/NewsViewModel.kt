@@ -16,7 +16,7 @@ class NewsViewModel(private val getNews: GetNews) : ViewModel() {
     init {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val news = getNews.getNews()
+                val news = getNews.get()
                 _newsItems.postValue(news.toMutableList())
             } catch (ex: Exception) {
                 val exm = ex.message
