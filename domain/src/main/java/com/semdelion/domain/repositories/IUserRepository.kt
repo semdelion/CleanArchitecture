@@ -1,8 +1,8 @@
 package com.semdelion.domain.repositories
 
-import com.semdelion.domain.models.User
+import com.semdelion.domain.models.UserModel
 
 interface IUserRepository {
-    fun saveUser(user: User): Boolean
-    fun getUser(): User
+    fun saveUser(userModel: UserModel): Boolean
+    fun getUser(): UserModel
 }

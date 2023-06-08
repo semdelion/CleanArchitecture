@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semdelion.domain.models.News
-import com.semdelion.domain.usecases.news.SaveNews
+import com.semdelion.domain.models.NewsModel
+import com.semdelion.domain.usecases.news.SaveNewsUseCase
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class NewsDetailsViewModel(
     private val newsNavigationArg: NewsNavigationArg,
-    private val saveNews: SaveNews
+    private val saveNewsUseCase: SaveNewsUseCase
 ) : ViewModel() {
 
     val imageUrl: String = newsNavigationArg.imageURL
@@ -37,8 +37,8 @@ class NewsDetailsViewModel(
 
     public fun addToFavoriteNews() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = saveNews.save(
-                News(
+            val result = saveNewsUseCase.save(
+                NewsModel(
                     title = newsNavigationArg.title,
                     link = newsNavigationArg.link,
                     creator = newsNavigationArg.creator,

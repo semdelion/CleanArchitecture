@@ -1,13 +1,10 @@
 package com.semdelion.data.services.models
 
 import com.google.gson.annotations.SerializedName
+import com.semdelion.domain.models.NewsModel
 
-data class NewsResult(
-    val status: String,
-    val results: List<NewsModel>
-)
 
-data class NewsModel(
+data class NewsDataModel(
     val title: String,
     val link: String,
     val keywords: List<String>,
@@ -30,3 +27,16 @@ data class NewsModel(
     val country: List<String>,
     val language: String
 )
+
+fun NewsDataModel.toNewsModel() : NewsModel {
+    return NewsModel(
+        title = this.title,
+        link = this.link,
+        creator = this.creator ?: listOf(),
+        videoURL = this.videoURL ?: "",
+        description = this.description ?: "",
+        content = this.content ?: "",
+        pubDate = this.pubDate,
+        imageURL = this.imageURL ?: "",
+    )
+}

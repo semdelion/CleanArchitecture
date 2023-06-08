@@ -11,21 +11,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.semdelion.R
 import com.semdelion.databinding.TemplateNewsItemBinding
-import com.semdelion.domain.models.News
+import com.semdelion.domain.models.NewsModel
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.views.NewsFragmentDirections
 
 class NewsRecyclerAdapter :
-    ListAdapter<News, NewsRecyclerAdapter.NewsViewHolder>(NewsComparator()) {
+    ListAdapter<NewsModel, NewsRecyclerAdapter.NewsViewHolder>(NewsComparator()) {
 
     private lateinit var bindingView: TemplateNewsItemBinding
 
-    class NewsComparator : DiffUtil.ItemCallback<News>() {
-        override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
+    class NewsComparator : DiffUtil.ItemCallback<NewsModel>() {
+        override fun areItemsTheSame(oldItem: NewsModel, newItem: NewsModel): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
 
-        override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+        override fun areContentsTheSame(oldItem: NewsModel, newItem: NewsModel): Boolean {
             return oldItem == newItem
         }
     }

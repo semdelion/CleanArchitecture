@@ -1,6 +1,6 @@
 package com.semdelion.domain.models
 
-data class News(
+data class NewsModel(
     val title: String,
     val link: String,
     val creator: List<String>,

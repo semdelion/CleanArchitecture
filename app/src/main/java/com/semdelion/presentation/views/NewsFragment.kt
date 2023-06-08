@@ -46,7 +46,7 @@ class NewsFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
         val adapter = NewsRecyclerAdapter()
         recyclerView.adapter = adapter
-        viewModel.newsItems.observe(viewLifecycleOwner) {
+        viewModel.newsModelItems.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
         return view

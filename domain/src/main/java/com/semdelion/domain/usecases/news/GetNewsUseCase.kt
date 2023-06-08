@@ -1,10 +1,10 @@
 package com.semdelion.domain.usecases.news
 
-import com.semdelion.domain.models.News
+import com.semdelion.domain.models.NewsModel
 import com.semdelion.domain.repositories.INewsRepository
 
-class GetNews(private val newsRepository: INewsRepository) {
-    fun get(): List<News> {
+class GetNewsUseCase(private val newsRepository: INewsRepository) {
+    fun get(): List<NewsModel> {
         return newsRepository.getNews()
     }
 }

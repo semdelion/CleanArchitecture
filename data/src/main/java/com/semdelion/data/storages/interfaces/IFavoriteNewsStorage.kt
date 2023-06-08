@@ -1,4 +1,4 @@
-package com.semdelion.data.storages
+package com.semdelion.data.storages.interfaces
 
 import com.semdelion.data.storages.room.favorite.news.FavoriteNewsEntity
 

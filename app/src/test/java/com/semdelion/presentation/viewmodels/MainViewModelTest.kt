@@ -3,10 +3,9 @@ package com.semdelion.presentation.viewmodels
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.semdelion.domain.models.User
-import com.semdelion.domain.usecases.GetUser
-import com.semdelion.domain.usecases.SaveUser
-import com.semdelion.presentation.viewmodels.MainViewModel
+import com.semdelion.domain.models.UserModel
+import com.semdelion.domain.usecases.GetUserUseCase
+import com.semdelion.domain.usecases.SaveUserUseCase
 import org.junit.Test
 
 import org.junit.Rule
@@ -20,8 +19,8 @@ import org.mockito.kotlin.times
 
 class MainViewModelTest {
 
-    private val getUserUseCase = mock<GetUser>()
-    private val saveUserUseCase = mock<SaveUser>()
+    private val getUserUseCase = mock<GetUserUseCase>()
+    private val saveUserUseCase = mock<SaveUserUseCase>()
 
     @AfterEach
     fun afterEach() {
@@ -52,52 +51,52 @@ class MainViewModelTest {
 
     @Test
     fun `should save username and return true`() {
-        val testUser = User("firstName", "lastName")
+        val testUserModel = UserModel("firstName", "lastName")
         val saveResult = true
 
-        Mockito.`when`(saveUserUseCase.execute(user = testUser)).thenReturn(saveResult)
+        Mockito.`when`(saveUserUseCase.execute(userModel = testUserModel)).thenReturn(saveResult)
         val viewModel = MainViewModel(getUser = getUserUseCase, saveUser = saveUserUseCase)
-        viewModel.firstNameLive.value = (testUser.firstName)
-        viewModel.lastNameLive.value = (testUser.lastName)
+        viewModel.firstNameLive.value = (testUserModel.firstName)
+        viewModel.lastNameLive.value = (testUserModel.lastName)
 
         viewModel.save()
         //TODO надо дописать нормально тест
         val expected = "true"
         val actual = "true"
         Assertions.assertEquals(expected, actual)
-        Mockito.verify(saveUserUseCase, times(1)).execute(testUser)
+        Mockito.verify(saveUserUseCase, times(1)).execute(testUserModel)
     }
 
 
     @Test
     fun `should save username and return false`() {
-        val testUser = User(firstName = "firstName", lastName = "lastName")
+        val testUserModel = UserModel(firstName = "firstName", lastName = "lastName")
         val saveResult = false
 
-        Mockito.`when`(saveUserUseCase.execute(user = testUser)).thenReturn(saveResult)
+        Mockito.`when`(saveUserUseCase.execute(userModel = testUserModel)).thenReturn(saveResult)
         val viewModel = MainViewModel(getUser = getUserUseCase, saveUser = saveUserUseCase)
-        viewModel.firstNameLive.value = testUser.firstName
-        viewModel.lastNameLive.value = testUser.lastName
+        viewModel.firstNameLive.value = testUserModel.firstName
+        viewModel.lastNameLive.value = testUserModel.lastName
 
         viewModel.save()
         //TODO надо дописать нормально тест
         val expected = "false"
         val actual = "false"
         Assertions.assertEquals(expected, actual)
-        Mockito.verify(saveUserUseCase, times(1)).execute(testUser)
+        Mockito.verify(saveUserUseCase, times(1)).execute(testUserModel)
     }
 
     @Test
     fun `should load user`() {
-        val testUser = User(firstName = "firstName", lastName = "lastName")
+        val testUserModel = UserModel(firstName = "firstName", lastName = "lastName")
 
-        Mockito.`when`(getUserUseCase.execute()).thenReturn(testUser)
+        Mockito.`when`(getUserUseCase.execute()).thenReturn(testUserModel)
 
         val viewModel = MainViewModel(getUser = getUserUseCase, saveUser = saveUserUseCase)
 
         viewModel.load()
 
-        val expected = "${testUser.firstName}, ${testUser.lastName}"
+        val expected = "${testUserModel.firstName}, ${testUserModel.lastName}"
         val actual = viewModel.loadedUserLive.value
         Assertions.assertEquals(expected, actual)
     }

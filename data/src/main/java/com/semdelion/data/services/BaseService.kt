@@ -25,16 +25,14 @@ abstract class BaseService {
         }
 
         private fun getAuthInterceptor(): Interceptor {
-            return object : Interceptor {
-                override fun intercept(chain: Interceptor.Chain): Response {
-                    val original: Request = chain.request()
-                    val request: Request = original.newBuilder()
-                        .header("X-ACCESS-KEY", "pub_21221020bb9c580281896a2305077b7ffbe0f")
-                        .method(original.method, original.body)
-                        .build()
+            return Interceptor { chain ->
+                val original: Request = chain.request()
+                val request: Request = original.newBuilder()
+                    .header("X-ACCESS-KEY", "pub_21221020bb9c580281896a2305077b7ffbe0f")
+                    .method(original.method, original.body)
+                    .build()
 
-                    return chain.proceed(request)
-                }
+                chain.proceed(request)
             }
         }
 
@@ -43,7 +41,7 @@ abstract class BaseService {
             .addInterceptor(getAuthInterceptor())
             .build()
         private val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
-        val retrofit = Retrofit.Builder()
+        val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(host)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))

@@ -1,10 +1,10 @@
 package com.semdelion.domain.usecases
 
-import com.semdelion.domain.models.User
+import com.semdelion.domain.models.UserModel
 import com.semdelion.domain.repositories.IUserRepository
 
-class GetUser(private val repository: IUserRepository) {
-    fun execute(): User {
+class GetUserUseCase(private val repository: IUserRepository) {
+    fun execute(): UserModel {
         return repository.getUser()
     }
 }

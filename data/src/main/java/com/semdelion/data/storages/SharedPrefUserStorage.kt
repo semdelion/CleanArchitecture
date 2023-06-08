@@ -1,7 +1,8 @@
 package com.semdelion.data.storages
 
-import com.semdelion.data.storages.models.UserModel
+import com.semdelion.data.storages.models.UserDataModel
 import android.content.Context
+import com.semdelion.data.storages.interfaces.IUserStorage
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -14,7 +15,7 @@ class SharedPrefUserStorage(private val context: Context) : IUserStorage {
     private val sharedPreferences =
         context.getSharedPreferences(SHARED_NAME_USER_DB, Context.MODE_PRIVATE)
 
-    override fun save(user: UserModel): Boolean {
+    override fun save(user: UserDataModel): Boolean {
         try {
             val json = Json.encodeToString(user)
             sharedPreferences.edit().putString(USER_TEST, json).apply()
@@ -26,12 +27,12 @@ class SharedPrefUserStorage(private val context: Context) : IUserStorage {
         return true
     }
 
-    override fun get(): UserModel {
+    override fun get(): UserDataModel {
         val jsonUser = sharedPreferences.getString(USER_TEST, "")
-        var user = UserModel("", "")
+        var user = UserDataModel("", "")
         jsonUser?.let {
             try {
-                user = Json.decodeFromString<UserModel>(it)
+                user = Json.decodeFromString(it)
             } catch (ex: Exception) {
                 //TODO add error logs
             }
