@@ -1,6 +1,6 @@
 package com.semdelion.data.storages.interfaces
 
-import com.semdelion.data.storages.room.favorite.news.FavoriteNewsEntity
+import com.semdelion.data.storages.room.FavoriteNewsEntity
 
 interface IFavoriteNewsStorage {
     suspend fun getNews(): List<FavoriteNewsEntity>

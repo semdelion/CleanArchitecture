@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.semdelion.data.storages.room.favorite.news.FavoriteNewsEntity
 
 @Dao
 interface FavoriteNewsDao {

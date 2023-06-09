@@ -8,11 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.semdelion.R
 import com.semdelion.databinding.FragmentFavoriteNewsBinding
+import com.semdelion.databinding.FragmentNewsBinding
 import com.semdelion.databinding.FragmentUserBinding
 import com.semdelion.presentation.viewmodels.FavoriteNewsViewModel
 import com.semdelion.presentation.viewmodels.NewsViewModel
+import com.semdelion.presentation.views.adapters.NewsRecyclerAdapter
+import com.semdelion.presentation.views.factories.FavoriteNewsViewModelFactory
+import com.semdelion.presentation.views.factories.NewsViewModelFactory
 
 class FavoriteNewsFragment : Fragment() {
 
@@ -25,7 +31,10 @@ class FavoriteNewsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[FavoriteNewsViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            FavoriteNewsViewModelFactory(requireContext().applicationContext)
+        )[FavoriteNewsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -41,6 +50,15 @@ class FavoriteNewsFragment : Fragment() {
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
 
-        return viewBinding.root
+        val view = viewBinding.root
+        val recyclerView: RecyclerView = view.findViewById(R.id.news_recyclerview)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
+        val adapter = NewsRecyclerAdapter()
+        recyclerView.adapter = adapter
+        viewModel.newsModelItems.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+
+        return view
     }
 }

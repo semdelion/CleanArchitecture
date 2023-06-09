@@ -2,7 +2,7 @@ package com.semdelion.data.storages
 
 import com.semdelion.data.storages.interfaces.IFavoriteNewsStorage
 import com.semdelion.data.storages.room.FavoriteNewsDao
-import com.semdelion.data.storages.room.favorite.news.FavoriteNewsEntity
+import com.semdelion.data.storages.room.FavoriteNewsEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

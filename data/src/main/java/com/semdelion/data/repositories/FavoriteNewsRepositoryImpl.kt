@@ -1,8 +1,8 @@
 package com.semdelion.data.repositories
 
 import com.semdelion.data.storages.interfaces.IFavoriteNewsStorage
-import com.semdelion.data.storages.room.favorite.news.FavoriteNewsEntity
-import com.semdelion.data.storages.room.favorite.news.toFavoriteNewsModel
+import com.semdelion.data.storages.room.FavoriteNewsEntity
+import com.semdelion.data.storages.room.toFavoriteNewsModel
 import com.semdelion.domain.models.NewsModel
 import com.semdelion.domain.repositories.IFavoriteNewsRepository
 
