@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.semdelion.R
 import com.semdelion.databinding.FragmentNewsBinding
+import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.viewmodels.NewsViewModel
 import com.semdelion.presentation.views.adapters.NewsRecyclerAdapter
 import com.semdelion.presentation.views.factories.NewsViewModelFactory
@@ -44,7 +45,11 @@ class NewsFragment : Fragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.news_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
-        val adapter = NewsRecyclerAdapter()
+        val adapter = NewsRecyclerAdapter { navArg: NewsNavigationArg ->
+            NewsFragmentDirections.actionNewsFragmentToNewsDetailsFragment(
+                navArg
+            )
+        }
         recyclerView.adapter = adapter
         viewModel.newsModelItems.observe(viewLifecycleOwner) {
             adapter.submitList(it)

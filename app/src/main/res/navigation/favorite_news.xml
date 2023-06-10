@@ -10,7 +10,16 @@
         android:label="@string/toolbar_title_favorite_news"
         tools:layout="@layout/fragment_favorite_news">
         <action
-            android:id="@+id/action_favoriteNewsFragment_to_newsDetailsFragment"
-            app:destination="@id/newsDetailsFragment" />
+            android:id="@+id/action_favoriteNewsFragment_to_favoriteNewsDetailsFragment"
+            app:destination="@id/favoriteNewsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteNewsDetailsFragment"
+        android:name="com.semdelion.presentation.views.FavoriteNewsDetailsFragment"
+        android:label="FavoriteNewsDetailsFragment"
+        tools:layout="@layout/fragment_favorite_news_details">
+        <argument
+            android:name="newsItem"
+            app:argType="com.semdelion.presentation.navigation.NewsNavigationArg" />
     </fragment>
 </navigation>

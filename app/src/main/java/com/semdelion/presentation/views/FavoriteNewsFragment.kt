@@ -14,6 +14,7 @@ import com.semdelion.R
 import com.semdelion.databinding.FragmentFavoriteNewsBinding
 import com.semdelion.databinding.FragmentNewsBinding
 import com.semdelion.databinding.FragmentUserBinding
+import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.viewmodels.FavoriteNewsViewModel
 import com.semdelion.presentation.viewmodels.NewsViewModel
 import com.semdelion.presentation.views.adapters.NewsRecyclerAdapter
@@ -53,7 +54,11 @@ class FavoriteNewsFragment : Fragment() {
         val view = viewBinding.root
         val recyclerView: RecyclerView = view.findViewById(R.id.news_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
-        val adapter = NewsRecyclerAdapter()
+        val adapter = NewsRecyclerAdapter { navArg: NewsNavigationArg ->
+            FavoriteNewsFragmentDirections.actionFavoriteNewsFragmentToFavoriteNewsDetailsFragment(
+                navArg
+            )
+        }
         recyclerView.adapter = adapter
         viewModel.newsModelItems.observe(viewLifecycleOwner) {
             adapter.submitList(it)

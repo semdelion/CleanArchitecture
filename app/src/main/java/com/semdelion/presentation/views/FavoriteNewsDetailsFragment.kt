@@ -17,26 +17,29 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.semdelion.R
+import com.semdelion.databinding.FragmentFavoriteNewsDetailsBinding
 import com.semdelion.databinding.FragmentNewsDetailsBinding
+import com.semdelion.presentation.viewmodels.FavoriteNewsDetailsViewModel
 import com.semdelion.presentation.viewmodels.NewsDetailsViewModel
+import com.semdelion.presentation.views.factories.FavoriteNewsDetailsViewModelFactory
 import com.semdelion.presentation.views.factories.NewsDetailsViewModelFactory
 import kotlinx.coroutines.launch
 
-class NewsDetailsFragment : Fragment(), MenuProvider {
+class FavoriteNewsDetailsFragment : Fragment(), MenuProvider {
 
     companion object {
-        fun newInstance() = NewsDetailsFragment()
+        fun newInstance() = FavoriteNewsDetailsFragment()
     }
 
-    private lateinit var viewModel: NewsDetailsViewModel
-    private lateinit var viewBinding: FragmentNewsDetailsBinding
+    private lateinit var viewModel: FavoriteNewsDetailsViewModel
+    private lateinit var viewBinding: FragmentFavoriteNewsDetailsBinding
     private val args: NewsDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(
-            this, NewsDetailsViewModelFactory(args.newsItem, requireContext().applicationContext)
-        )[NewsDetailsViewModel::class.java]
+            this, FavoriteNewsDetailsViewModelFactory(args.newsItem, requireContext().applicationContext)
+        )[FavoriteNewsDetailsViewModel::class.java]
         //TODO https://stackoverflow.com/questions/67350331/how-to-use-hilt-to-inject-a-safe-args-argument-into-a-viewmodel
     }
 
@@ -45,7 +48,7 @@ class NewsDetailsFragment : Fragment(), MenuProvider {
     ): View {
 
         viewBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_news_details, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_favorite_news_details, container, false)
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
         setupMenu()
@@ -81,17 +84,25 @@ class NewsDetailsFragment : Fragment(), MenuProvider {
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.save_news_menu, menu)
+        menuInflater.inflate(R.menu.remove_news_menu, menu)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         val id = menuItem.itemId
-        if (id == R.id.add_to_favorite_news) {
-            lifecycleScope.launch {
-                viewModel.addToFavoriteNews()
-
-                Toast.makeText(context, "add", Toast.LENGTH_SHORT)
-                    .show()
+        if (id == R.id.remove_favorite_news) {
+            this.context?.let {
+                val builder = AlertDialog.Builder(it)
+                builder.setTitle("Delete")
+                builder.setMessage("Delete news?")
+                builder.setPositiveButton("Yes") { _, _ ->
+                    lifecycleScope.launch {
+                        viewModel.deleteFavoriteNews()
+                    }
+                }
+                builder.setNegativeButton("No") { _, _ ->   }
+                val alertDialog: AlertDialog = builder.create()
+                alertDialog.setCancelable(false)
+                alertDialog.show()
             }
         }
         return false

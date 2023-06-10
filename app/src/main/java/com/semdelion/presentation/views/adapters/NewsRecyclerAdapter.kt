@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,7 +16,7 @@ import com.semdelion.domain.models.NewsModel
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.views.NewsFragmentDirections
 
-class NewsRecyclerAdapter :
+class NewsRecyclerAdapter(private val getDirections: (navArg: NewsNavigationArg) -> NavDirections) :
     ListAdapter<NewsModel, NewsRecyclerAdapter.NewsViewHolder>(NewsComparator()) {
 
     private lateinit var bindingView: TemplateNewsItemBinding
@@ -58,8 +59,7 @@ class NewsRecyclerAdapter :
                 getItem(position).pubDate,
                 getItem(position).imageURL
             )
-            val directions = NewsFragmentDirections.actionNewsFragmentToNewsDetailsFragment(navArg)
-            it.findNavController().navigate(directions)
+            it.findNavController().navigate(getDirections(navArg))
         }
     }
 }
