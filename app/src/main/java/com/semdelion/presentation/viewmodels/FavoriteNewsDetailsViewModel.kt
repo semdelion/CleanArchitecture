@@ -8,6 +8,7 @@ import com.semdelion.domain.models.NewsModel
 import com.semdelion.domain.usecases.news.DeleteNewsUseCase
 import com.semdelion.domain.usecases.news.SaveNewsUseCase
 import com.semdelion.presentation.navigation.NewsNavigationArg
+import com.semdelion.presentation.navigation.toNewsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -33,23 +34,14 @@ class FavoriteNewsDetailsViewModel(
 
     val link: String = newsNavigationArg.link
 
-    //private val _saveNewsState = MutableSharedFlow<String>()
-    //val saveNewsState = _saveNewsState.asSharedFlow()
+    private val _deleteNewsState = MutableSharedFlow<String>()
+    val deleteNewsState = _deleteNewsState.asSharedFlow()
 
-    public fun deleteFavoriteNews() {
+    fun deleteFavoriteNews() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = deleteNewsUseCase.delete(
-                NewsModel(
-                    title = newsNavigationArg.title,
-                    link = newsNavigationArg.link,
-                    creator = newsNavigationArg.creator,
-                    videoURL = "",
-                    description = "",
-                    content = newsNavigationArg.content,
-                    pubDate = newsNavigationArg.pubDate,
-                    imageURL = newsNavigationArg.imageURL
-                )
-            )
+            val result = deleteNewsUseCase.delete(newsNavigationArg.toNewsModel())
+
+            _deleteNewsState.emit(if (result) "Successful delete!" else "Failure delete!")
         }
     }
 }

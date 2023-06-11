@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.semdelion.R
@@ -23,6 +24,7 @@ import com.semdelion.presentation.viewmodels.FavoriteNewsDetailsViewModel
 import com.semdelion.presentation.viewmodels.NewsDetailsViewModel
 import com.semdelion.presentation.views.factories.FavoriteNewsDetailsViewModelFactory
 import com.semdelion.presentation.views.factories.NewsDetailsViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class FavoriteNewsDetailsFragment : Fragment(), MenuProvider {
@@ -69,6 +71,14 @@ class FavoriteNewsDetailsFragment : Fragment(), MenuProvider {
             creatorView.findViewById<TextView>(R.id.creator).text = creator
             viewBinding.newsDetailsConstraint.addView(creatorView)
             viewBinding.creatorsFlow.addView(creatorView)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.deleteNewsState.collectLatest {
+                    Toast.makeText(viewBinding.root.context, it, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         return viewBinding.root;

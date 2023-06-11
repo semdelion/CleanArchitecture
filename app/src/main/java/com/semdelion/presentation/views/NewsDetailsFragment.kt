@@ -14,12 +14,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.semdelion.R
 import com.semdelion.databinding.FragmentNewsDetailsBinding
 import com.semdelion.presentation.viewmodels.NewsDetailsViewModel
 import com.semdelion.presentation.views.factories.NewsDetailsViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class NewsDetailsFragment : Fragment(), MenuProvider {
@@ -68,6 +70,14 @@ class NewsDetailsFragment : Fragment(), MenuProvider {
             viewBinding.creatorsFlow.addView(creatorView)
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.saveNewsState.collectLatest {
+                    Toast.makeText(viewBinding.root.context, it, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         return viewBinding.root;
     }
 
@@ -89,9 +99,6 @@ class NewsDetailsFragment : Fragment(), MenuProvider {
         if (id == R.id.add_to_favorite_news) {
             lifecycleScope.launch {
                 viewModel.addToFavoriteNews()
-
-                Toast.makeText(context, "add", Toast.LENGTH_SHORT)
-                    .show()
             }
         }
         return false

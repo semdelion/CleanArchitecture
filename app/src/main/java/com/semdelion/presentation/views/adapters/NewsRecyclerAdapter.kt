@@ -52,12 +52,12 @@ class NewsRecyclerAdapter(private val getDirections: (navArg: NewsNavigationArg)
 
         holder.itemView.setOnClickListener {
             val navArg = NewsNavigationArg(
-                getItem(position).title,
-                getItem(position).link,
-                getItem(position).creator,
-                getItem(position).content,
-                getItem(position).pubDate,
-                getItem(position).imageURL
+                title = getItem(position).title,
+                link = getItem(position).link,
+                creator = getItem(position).creator,
+                content = getItem(position).content,
+                pubDate = getItem(position).pubDate,
+                imageURL = getItem(position).imageURL
             )
             it.findNavController().navigate(getDirections(navArg))
         }

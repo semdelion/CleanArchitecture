@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.semdelion.domain.models.NewsModel
 import com.semdelion.domain.usecases.news.SaveNewsUseCase
 import com.semdelion.presentation.navigation.NewsNavigationArg
+import com.semdelion.presentation.navigation.toNewsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -35,24 +36,11 @@ class NewsDetailsViewModel(
     private val _saveNewsState = MutableSharedFlow<String>()
     val saveNewsState = _saveNewsState.asSharedFlow()
 
-    public fun addToFavoriteNews() {
+    fun addToFavoriteNews() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = saveNewsUseCase.save(
-                NewsModel(
-                    title = newsNavigationArg.title,
-                    link = newsNavigationArg.link,
-                    creator = newsNavigationArg.creator,
-                    videoURL = "",
-                    description = "",
-                    content = newsNavigationArg.content,
-                    pubDate = newsNavigationArg.pubDate,
-                    imageURL = newsNavigationArg.imageURL
-                )
-            )
+            val result = saveNewsUseCase.save(newsNavigationArg.toNewsModel())
 
-            //val result2 = getFavoriteNews.getFavoriteNews()
-
-           // val result4 = result2
+            _saveNewsState.emit(if (result) "Successful save!" else "Failure save!")
         }
     }
 }
