@@ -14,6 +14,10 @@ class NewsViewModel(private val getNewsUseCase: GetNewsUseCase) : ViewModel() {
     val newsModelItems: LiveData<MutableList<NewsModel>> = _newsModelItems
 
     init {
+        loadNews()
+    }
+
+    fun loadNews() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val news = getNewsUseCase.get()

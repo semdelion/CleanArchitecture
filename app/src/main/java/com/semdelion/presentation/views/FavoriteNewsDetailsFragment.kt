@@ -15,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.semdelion.R
@@ -73,14 +74,6 @@ class FavoriteNewsDetailsFragment : Fragment(), MenuProvider {
             viewBinding.creatorsFlow.addView(creatorView)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.deleteNewsState.collectLatest {
-                    Toast.makeText(viewBinding.root.context, it, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
         return viewBinding.root;
     }
 
@@ -107,6 +100,7 @@ class FavoriteNewsDetailsFragment : Fragment(), MenuProvider {
                 builder.setPositiveButton("Yes") { _, _ ->
                     lifecycleScope.launch {
                         viewModel.deleteFavoriteNews()
+                        findNavController().popBackStack()
                     }
                 }
                 builder.setNegativeButton("No") { _, _ ->   }

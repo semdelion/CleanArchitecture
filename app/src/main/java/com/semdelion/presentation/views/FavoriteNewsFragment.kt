@@ -17,6 +17,7 @@ import com.semdelion.databinding.FragmentUserBinding
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.viewmodels.FavoriteNewsViewModel
 import com.semdelion.presentation.viewmodels.NewsViewModel
+import com.semdelion.presentation.views.adapters.FavoriteNewsRecyclerAdapter
 import com.semdelion.presentation.views.adapters.NewsRecyclerAdapter
 import com.semdelion.presentation.views.factories.FavoriteNewsViewModelFactory
 import com.semdelion.presentation.views.factories.NewsViewModelFactory
@@ -51,19 +52,22 @@ class FavoriteNewsFragment : Fragment() {
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
 
-        val view = viewBinding.root
-        val recyclerView: RecyclerView = view.findViewById(R.id.news_recyclerview)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
-        val adapter = NewsRecyclerAdapter { navArg: NewsNavigationArg ->
+        viewBinding.newsRecyclerview.layoutManager = LinearLayoutManager(requireContext().applicationContext)
+        val adapter = FavoriteNewsRecyclerAdapter { navArg: NewsNavigationArg ->
             FavoriteNewsFragmentDirections.actionFavoriteNewsFragmentToFavoriteNewsDetailsFragment(
                 navArg
             )
         }
-        recyclerView.adapter = adapter
+        viewBinding.newsRecyclerview.adapter = adapter
         viewModel.newsModelItems.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
-        return view
+        viewBinding.newsSwipeRefreshLayout.setOnRefreshListener {
+            viewModel.loadFavoriteNews()
+            viewBinding.newsSwipeRefreshLayout.isRefreshing = false
+        }
+
+        return viewBinding.root
     }
 }

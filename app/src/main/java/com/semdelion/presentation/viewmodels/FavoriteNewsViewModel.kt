@@ -14,6 +14,10 @@ class FavoriteNewsViewModel(private val getFavoriteNewsUseCase: GetFavoriteNewsU
     val newsModelItems: LiveData<MutableList<NewsModel>> = _newsModelItems
 
     init {
+        loadFavoriteNews()
+    }
+
+    fun loadFavoriteNews() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val news = getFavoriteNewsUseCase.getFavoriteNews()

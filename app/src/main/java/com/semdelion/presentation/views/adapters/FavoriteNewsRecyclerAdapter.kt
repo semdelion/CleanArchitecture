@@ -17,8 +17,8 @@ import com.semdelion.domain.models.NewsModel
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.views.NewsFragmentDirections
 
-class NewsRecyclerAdapter(private val getDirections: (navArg: NewsNavigationArg) -> NavDirections) :
-    ListAdapter<NewsModel, NewsRecyclerAdapter.NewsViewHolder>(NewsComparator()) {
+class FavoriteNewsRecyclerAdapter(private val getDirections: (navArg: NewsNavigationArg) -> NavDirections) :
+    ListAdapter<NewsModel, FavoriteNewsRecyclerAdapter.NewsViewHolder>(NewsComparator()) {
 
     private lateinit var bindingView: TemplateNewsItemBinding
 

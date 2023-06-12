@@ -41,19 +41,22 @@ class NewsFragment : Fragment() {
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
 
-        val view = viewBinding.root
-
-        val recyclerView: RecyclerView = view.findViewById(R.id.news_recyclerview)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
+        viewBinding.newsRecyclerview.layoutManager = LinearLayoutManager(requireContext().applicationContext)
         val adapter = NewsRecyclerAdapter { navArg: NewsNavigationArg ->
             NewsFragmentDirections.actionNewsFragmentToNewsDetailsFragment(
                 navArg
             )
         }
-        recyclerView.adapter = adapter
+        viewBinding.newsRecyclerview.adapter = adapter
         viewModel.newsModelItems.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
-        return view
+
+        viewBinding.newsSwipeRefreshLayout.setOnRefreshListener {
+            viewModel.loadNews()
+            viewBinding.newsSwipeRefreshLayout.isRefreshing = false
+        }
+
+        return viewBinding.root
     }
 }
