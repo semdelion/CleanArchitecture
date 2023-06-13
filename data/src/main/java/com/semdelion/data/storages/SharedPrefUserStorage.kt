@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
 private const val SHARED_NAME_USER_DB = "shared_preferences_bd"
 private const val USER_TEST = "user_test"
 
-class SharedPrefUserStorage(private val context: Context) : IUserStorage {
+class SharedPrefUserStorage(context: Context) : IUserStorage {
 
     private val sharedPreferences =
         context.getSharedPreferences(SHARED_NAME_USER_DB, Context.MODE_PRIVATE)

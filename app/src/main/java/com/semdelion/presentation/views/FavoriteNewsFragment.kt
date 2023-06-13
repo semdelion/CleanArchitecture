@@ -1,26 +1,19 @@
 package com.semdelion.presentation.views
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.navArgs
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.semdelion.R
 import com.semdelion.databinding.FragmentFavoriteNewsBinding
-import com.semdelion.databinding.FragmentNewsBinding
-import com.semdelion.databinding.FragmentUserBinding
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.viewmodels.FavoriteNewsViewModel
-import com.semdelion.presentation.viewmodels.NewsViewModel
 import com.semdelion.presentation.views.adapters.FavoriteNewsRecyclerAdapter
-import com.semdelion.presentation.views.adapters.NewsRecyclerAdapter
 import com.semdelion.presentation.views.factories.FavoriteNewsViewModelFactory
-import com.semdelion.presentation.views.factories.NewsViewModelFactory
 
 class FavoriteNewsFragment : Fragment() {
 
@@ -52,7 +45,8 @@ class FavoriteNewsFragment : Fragment() {
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
 
-        viewBinding.newsRecyclerview.layoutManager = LinearLayoutManager(requireContext().applicationContext)
+        viewBinding.newsRecyclerview.layoutManager =
+            LinearLayoutManager(requireContext().applicationContext)
         val adapter = FavoriteNewsRecyclerAdapter { navArg: NewsNavigationArg ->
             FavoriteNewsFragmentDirections.actionFavoriteNewsFragmentToFavoriteNewsDetailsFragment(
                 navArg
@@ -65,9 +59,21 @@ class FavoriteNewsFragment : Fragment() {
 
         viewBinding.newsSwipeRefreshLayout.setOnRefreshListener {
             viewModel.loadFavoriteNews()
-            viewBinding.newsSwipeRefreshLayout.isRefreshing = false
+                .invokeOnCompletion { viewBinding.newsSwipeRefreshLayout.isRefreshing = false }
         }
 
+        /*getNavigationResultLiveData<Boolean>()?.observe(viewLifecycleOwner) { booleanValue ->
+            if(booleanValue) {
+                viewModel.loadFavoriteNews()
+                setNavigationResult(false)
+            }
+        }*/
+
         return viewBinding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadFavoriteNews()
     }
 }

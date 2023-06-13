@@ -1,14 +1,13 @@
 package com.semdelion.presentation.views
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.semdelion.R
 import com.semdelion.databinding.FragmentNewsBinding
 import com.semdelion.presentation.navigation.NewsNavigationArg
@@ -41,7 +40,8 @@ class NewsFragment : Fragment() {
         viewBinding.lifecycleOwner = this
         viewBinding.vm = viewModel
 
-        viewBinding.newsRecyclerview.layoutManager = LinearLayoutManager(requireContext().applicationContext)
+        viewBinding.newsRecyclerview.layoutManager =
+            LinearLayoutManager(requireContext().applicationContext)
         val adapter = NewsRecyclerAdapter { navArg: NewsNavigationArg ->
             NewsFragmentDirections.actionNewsFragmentToNewsDetailsFragment(
                 navArg
@@ -54,7 +54,7 @@ class NewsFragment : Fragment() {
 
         viewBinding.newsSwipeRefreshLayout.setOnRefreshListener {
             viewModel.loadNews()
-            viewBinding.newsSwipeRefreshLayout.isRefreshing = false
+                .invokeOnCompletion { viewBinding.newsSwipeRefreshLayout.isRefreshing = false }
         }
 
         return viewBinding.root

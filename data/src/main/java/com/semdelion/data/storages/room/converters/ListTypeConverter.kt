@@ -1,7 +1,6 @@
 package com.semdelion.data.storages.room.converters
 
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import com.google.gson.Gson
 import com.semdelion.data.extensions.fromJson
 

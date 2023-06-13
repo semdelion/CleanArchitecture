@@ -8,10 +8,8 @@ import com.semdelion.data.repositories.FavoriteNewsRepositoryImpl
 import com.semdelion.data.storages.RoomFavoriteNewsStorage
 import com.semdelion.data.storages.room.AppDatabase
 import com.semdelion.domain.usecases.news.DeleteNewsUseCase
-import com.semdelion.domain.usecases.news.SaveNewsUseCase
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.viewmodels.FavoriteNewsDetailsViewModel
-import com.semdelion.presentation.viewmodels.NewsDetailsViewModel
 
 class FavoriteNewsDetailsViewModelFactory(private val navArg: NewsNavigationArg, context: Context) :
     ViewModelProvider.Factory {

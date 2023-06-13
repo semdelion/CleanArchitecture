@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.semdelion.domain.models.NewsModel
 import com.semdelion.domain.usecases.news.SaveNewsUseCase
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.navigation.toNewsModel

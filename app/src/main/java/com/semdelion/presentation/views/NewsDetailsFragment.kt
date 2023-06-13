@@ -6,7 +6,6 @@ import android.view.View.GONE
 import android.view.View.generateViewId
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil

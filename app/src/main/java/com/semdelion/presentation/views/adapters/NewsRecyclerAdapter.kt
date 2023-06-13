@@ -3,7 +3,6 @@ package com.semdelion.presentation.views.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RemoteViews.RemoteCollectionItems
 import android.widget.TextView
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
@@ -15,7 +14,6 @@ import com.semdelion.R
 import com.semdelion.databinding.TemplateNewsItemBinding
 import com.semdelion.domain.models.NewsModel
 import com.semdelion.presentation.navigation.NewsNavigationArg
-import com.semdelion.presentation.views.NewsFragmentDirections
 
 class NewsRecyclerAdapter(private val getDirections: (navArg: NewsNavigationArg) -> NavDirections) :
     ListAdapter<NewsModel, NewsRecyclerAdapter.NewsViewHolder>(NewsComparator()) {

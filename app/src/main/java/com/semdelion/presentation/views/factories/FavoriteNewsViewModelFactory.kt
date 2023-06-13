@@ -5,13 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.semdelion.data.repositories.FavoriteNewsRepositoryImpl
-import com.semdelion.data.repositories.NewsRepositoryImpl
 import com.semdelion.data.storages.RoomFavoriteNewsStorage
 import com.semdelion.data.storages.room.AppDatabase
 import com.semdelion.domain.usecases.news.GetFavoriteNewsUseCase
-import com.semdelion.domain.usecases.news.GetNewsUseCase
 import com.semdelion.presentation.viewmodels.FavoriteNewsViewModel
-import com.semdelion.presentation.viewmodels.NewsViewModel
 
 class FavoriteNewsViewModelFactory(context: Context) : ViewModelProvider.Factory {
 

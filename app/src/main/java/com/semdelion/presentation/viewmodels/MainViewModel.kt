@@ -11,7 +11,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val getUserUseCase: GetUserUseCase, private val saveUserUseCase: SaveUserUseCase) : ViewModel() {
+class MainViewModel(
+    private val getUserUseCase: GetUserUseCase,
+    private val saveUserUseCase: SaveUserUseCase
+) : ViewModel() {
 
     private val _loadedUserLive = MutableLiveData<String>("")
     val loadedUserLive: LiveData<String> = _loadedUserLive

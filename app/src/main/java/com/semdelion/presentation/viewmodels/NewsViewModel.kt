@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.semdelion.domain.models.NewsModel
 import com.semdelion.domain.usecases.news.GetNewsUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class NewsViewModel(private val getNewsUseCase: GetNewsUseCase) : ViewModel() {
@@ -17,8 +18,8 @@ class NewsViewModel(private val getNewsUseCase: GetNewsUseCase) : ViewModel() {
         loadNews()
     }
 
-    fun loadNews() {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun loadNews(): Job {
+        return viewModelScope.launch(Dispatchers.IO) {
             try {
                 val news = getNewsUseCase.get()
                 _newsModelItems.postValue(news.toMutableList())

@@ -3,7 +3,6 @@ package com.semdelion.data.services.models
 import com.google.gson.annotations.SerializedName
 import com.semdelion.domain.models.NewsModel
 
-
 data class NewsDataModel(
     val title: String,
     val link: String,
