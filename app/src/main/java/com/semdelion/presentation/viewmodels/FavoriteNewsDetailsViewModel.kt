@@ -2,11 +2,11 @@ package com.semdelion.presentation.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.semdelion.domain.usecases.news.DeleteNewsUseCase
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.navigation.toNewsModel
+import com.semdelion.presentation.viewmodels.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class FavoriteNewsDetailsViewModel(
     private val newsNavigationArg: NewsNavigationArg,
     private val deleteNewsUseCase: DeleteNewsUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     val imageUrl: String = newsNavigationArg.imageURL
 

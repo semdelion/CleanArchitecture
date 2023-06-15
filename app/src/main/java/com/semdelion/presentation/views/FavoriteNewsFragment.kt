@@ -6,14 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.semdelion.R
 import com.semdelion.databinding.FragmentFavoriteNewsBinding
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.viewmodels.FavoriteNewsViewModel
+import com.semdelion.presentation.viewmodels.extentions.ListViewState
 import com.semdelion.presentation.views.adapters.FavoriteNewsRecyclerAdapter
 import com.semdelion.presentation.views.factories.FavoriteNewsViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class FavoriteNewsFragment : Fragment() {
 
@@ -60,6 +66,21 @@ class FavoriteNewsFragment : Fragment() {
         viewBinding.newsSwipeRefreshLayout.setOnRefreshListener {
             viewModel.loadFavoriteNews()
                 .invokeOnCompletion { viewBinding.newsSwipeRefreshLayout.isRefreshing = false }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.viewState.collectLatest {
+                    when(it) {
+                        is ListViewState.Loading -> {
+                            viewBinding.newsLoaderProgressBar.visibility = View.VISIBLE
+                        }
+                        else -> {
+                            viewBinding.newsLoaderProgressBar.visibility = View.GONE
+                        }
+                    }
+                }
+            }
         }
 
         /*getNavigationResultLiveData<Boolean>()?.observe(viewLifecycleOwner) { booleanValue ->
