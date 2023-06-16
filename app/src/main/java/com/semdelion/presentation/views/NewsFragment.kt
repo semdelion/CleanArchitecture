@@ -69,18 +69,31 @@ class NewsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewState.collectLatest {
-                    when(it) {
+                    val hasItems = ((viewModel.items.value?.size ?: 0) > 0)
+                    when (it) {
                         is ListViewState.Loading -> {
-                            viewBinding.newsLoaderProgressBar.visibility = VISIBLE
+                            viewBinding.newsLoaderProgressBar.visibility =
+                                if (hasItems) GONE else VISIBLE
+                            viewBinding.stateLayout.visibility = GONE
                         }
-                        else -> {
+                        is ListViewState.Success -> {
                             viewBinding.newsLoaderProgressBar.visibility = GONE
+                            viewBinding.stateLayout.visibility = if (hasItems) GONE else VISIBLE
+                            if (!hasItems) {
+                                viewBinding.stateAnimationView.setAnimation(R.raw.anim_no_data)
+                            }
+                        }
+                        is ListViewState.Error -> {
+                            viewBinding.stateLayout.visibility = if (hasItems) GONE else VISIBLE
+                            viewBinding.newsLoaderProgressBar.visibility = GONE
+                            if (!hasItems) {
+                                viewBinding.stateAnimationView.setAnimation(R.raw.anim_error)
+                            }
                         }
                     }
                 }
             }
         }
-
         return viewBinding.root
     }
 }

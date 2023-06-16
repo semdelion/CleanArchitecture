@@ -41,7 +41,7 @@ android {
 }
 
 dependencies {
-    var nav_version = "2.5.3"
+    var nav_version = "2.6.0"
 
     implementation project(path: ':domain')
     implementation project(path: ':data')
@@ -59,6 +59,13 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.5.1'
     implementation 'androidx.room:room-runtime:2.5.1'
 
+    //Lottie
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    kapt 'com.github.bumptech.glide:compiler:4.15.1'
+
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
@@ -72,8 +79,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
-
-    //Glide
-    implementation 'com.github.bumptech.glide:glide:4.15.1'
-    kapt 'com.github.bumptech.glide:compiler:4.15.1'
 }
