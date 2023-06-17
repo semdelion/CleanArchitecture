@@ -6,13 +6,13 @@ import com.semdelion.data.services.models.toNewsModel
 import com.semdelion.domain.models.NewsModel
 import com.semdelion.domain.repositories.INewsRepository
 
-class NewsRepositoryImpl() : BaseService(), INewsRepository {
+class NewsRepositoryImpl : BaseService(), INewsRepository {
 
-    private val INewsServices = retrofit.create(INewsServices::class.java)
+    private val _newsService = retrofit.create(INewsServices::class.java)
 
     override fun getNews(): List<NewsModel> {
 
-        val response = INewsServices.getNews().execute()
+        val response = _newsService.getNews().execute()
 
         val newsModel = response.body()?.results ?: mutableListOf()
 

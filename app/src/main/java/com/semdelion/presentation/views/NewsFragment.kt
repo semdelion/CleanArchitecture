@@ -6,7 +6,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -15,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.semdelion.R
+import com.semdelion.data.services.interceptors.NoConnectivityException
 import com.semdelion.databinding.FragmentNewsBinding
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.viewmodels.NewsViewModel
@@ -36,14 +36,12 @@ class NewsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(
-            this,
-            NewsViewModelFactory()
+            this, NewsViewModelFactory()
         )[NewsViewModel::class.java]
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         viewBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false)
         viewBinding.lifecycleOwner = this
@@ -67,7 +65,7 @@ class NewsFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.viewState.collectLatest {
                     val hasItems = ((viewModel.items.value?.size ?: 0) > 0)
                     when (it) {
@@ -81,13 +79,18 @@ class NewsFragment : Fragment() {
                             viewBinding.stateLayout.visibility = if (hasItems) GONE else VISIBLE
                             if (!hasItems) {
                                 viewBinding.stateAnimationView.setAnimation(R.raw.anim_no_data)
+                                viewBinding.stateTextview.text = "No news!"
                             }
                         }
                         is ListViewState.Error -> {
                             viewBinding.stateLayout.visibility = if (hasItems) GONE else VISIBLE
                             viewBinding.newsLoaderProgressBar.visibility = GONE
                             if (!hasItems) {
-                                viewBinding.stateAnimationView.setAnimation(R.raw.anim_error)
+                                val animId =
+                                    if (it.error is NoConnectivityException) R.raw.anim_no_internet
+                                    else R.raw.anim_error
+                                viewBinding.stateAnimationView.setAnimation(animId)
+                                viewBinding.stateTextview.text = it.error.message
                             }
                         }
                     }

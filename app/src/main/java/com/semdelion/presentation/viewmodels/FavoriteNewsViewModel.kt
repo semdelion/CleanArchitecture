@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 
 class FavoriteNewsViewModel(private val getFavoriteNewsUseCase: GetFavoriteNewsUseCase) :
     BaseListViewModel() {
-    private val _newsModelItems = MutableLiveData<MutableList<NewsModel>>()
-    val newsModelItems: LiveData<MutableList<NewsModel>> = _newsModelItems
+    private val _items = MutableLiveData<MutableList<NewsModel>>()
+    val items: LiveData<MutableList<NewsModel>> = _items
 
     fun loadFavoriteNews(): Job {
         return viewModelScope.launch(Dispatchers.IO) {
@@ -22,7 +22,7 @@ class FavoriteNewsViewModel(private val getFavoriteNewsUseCase: GetFavoriteNewsU
                 _viewState.emit(ListViewState.Loading)
 
                 val news = getFavoriteNewsUseCase.getFavoriteNews()
-                _newsModelItems.postValue(news.toMutableList())
+                _items.postValue(news.toMutableList())
 
                 _viewState.emit(ListViewState.Success)
             } catch (ex: Exception) {
