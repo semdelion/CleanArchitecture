@@ -38,13 +38,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    //TODO убрать инициализацию room в data
-    kapt {
-        arguments {
-            arg("room.schemaLocation","$projectDir/schemas")
-        }
-    }
 }
 
 dependencies {
