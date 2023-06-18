@@ -17,18 +17,19 @@ data class FavoriteNewsEntity(
     @ColumnInfo(name = "content") val content: String,
     @ColumnInfo(name = "pubDate") val pubDate: String,
     @ColumnInfo(name = "imageURL") val imageURL: String
-)
-
-
-fun FavoriteNewsEntity.toFavoriteNewsModel() : NewsModel {
-    return NewsModel(
-        title = this.title,
-        link = this.link,
-        creator = this.creator,
-        videoURL = "",
-        description = "",
-        content = this.content,
-        pubDate = this.pubDate,
-        imageURL = this.imageURL,
-    )
+) {
+    fun toFavoriteNewsModel() : NewsModel {
+        return NewsModel(
+            title = this.title,
+            link = this.link,
+            creator = this.creator,
+            videoURL = "",
+            description = "",
+            content = this.content,
+            pubDate = this.pubDate,
+            imageURL = this.imageURL,
+        )
+    }
 }
+
+

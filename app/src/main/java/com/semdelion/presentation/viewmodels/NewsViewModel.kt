@@ -6,31 +6,43 @@ import androidx.lifecycle.viewModelScope
 import com.semdelion.domain.models.NewsModel
 import com.semdelion.domain.usecases.news.GetNewsUseCase
 import com.semdelion.presentation.viewmodels.base.BaseListViewModel
-import com.semdelion.presentation.viewmodels.extentions.ListViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class NewsViewModel(private val getNewsUseCase: GetNewsUseCase) : BaseListViewModel() {
     private val _items = MutableLiveData<MutableList<NewsModel>>()
     val items: LiveData<MutableList<NewsModel>> = _items
 
+    private var _nextPageId: String? = null
+
     init {
-        loadNews()
+        loadNews(_nextPageId)
     }
 
-    fun loadNews(): Job {
+    fun loadNextPage() : Job {
+        return loadNews(_nextPageId)
+    }
+
+    fun refreshNews() : Job {
+        _nextPageId = null
         return viewModelScope.launch(Dispatchers.IO) {
-            try {
-                _viewState.emit(ListViewState.Loading)
+            getItemsWithState{
+                val newsPageModel = getNewsUseCase.get(null)
+                _nextPageId = newsPageModel.nextPage
+                _items.postValue(newsPageModel.News.toMutableList())
+            }
+        }
+    }
 
-                val news = getNewsUseCase.get()
-                _items.postValue(news.toMutableList())
-
-                _viewState.emit(ListViewState.Success)
-            } catch (ex: Exception) {
-                _viewState.emit(ListViewState.Error(ex))
+    private fun loadNews(page:String?): Job {
+        return viewModelScope.launch(Dispatchers.IO) {
+            getItemsWithState {
+                val itemsData = _items.value ?: mutableListOf()
+                val newsPageModel = getNewsUseCase.get(page)
+                _nextPageId = newsPageModel.nextPage
+                itemsData.addAll(newsPageModel.News)
+                _items.postValue(itemsData)
             }
         }
     }
