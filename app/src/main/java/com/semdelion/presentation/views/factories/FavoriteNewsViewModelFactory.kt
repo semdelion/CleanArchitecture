@@ -1,23 +1,16 @@
 package com.semdelion.presentation.views.factories
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
 import com.semdelion.data.repositories.FavoriteNewsRepositoryImpl
-import com.semdelion.data.storages.RoomFavoriteNewsStorage
-import com.semdelion.data.storages.room.AppDatabase
+import com.semdelion.data.storages.Storages
 import com.semdelion.domain.usecases.news.GetFavoriteNewsUseCase
 import com.semdelion.presentation.viewmodels.FavoriteNewsViewModel
 
-class FavoriteNewsViewModelFactory(context: Context) : ViewModelProvider.Factory {
-
-    private val appDatabase: AppDatabase by lazy {
-        Room.databaseBuilder(context, AppDatabase::class.java, "database.db").build()
-    }
+class FavoriteNewsViewModelFactory : ViewModelProvider.Factory {
 
     private val favoriteNews by lazy {
-        FavoriteNewsRepositoryImpl(RoomFavoriteNewsStorage(appDatabase.getFavoriteNewsDao()))
+        FavoriteNewsRepositoryImpl(Storages.favoriteNewsStorage)
     }
     private val getFavoriteNewsUseCase by lazy {
         GetFavoriteNewsUseCase(favoriteNews)

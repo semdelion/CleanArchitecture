@@ -35,7 +35,7 @@ class FavoriteNewsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(
             this,
-            FavoriteNewsViewModelFactory(requireContext().applicationContext)
+            FavoriteNewsViewModelFactory()
         )[FavoriteNewsViewModel::class.java]
     }
 

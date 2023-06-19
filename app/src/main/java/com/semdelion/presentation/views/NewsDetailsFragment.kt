@@ -36,7 +36,7 @@ class NewsDetailsFragment : Fragment(), MenuProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(
-            this, NewsDetailsViewModelFactory(args.newsItem, requireContext().applicationContext)
+            this, NewsDetailsViewModelFactory(args.newsItem)
         )[NewsDetailsViewModel::class.java]
         //TODO https://stackoverflow.com/questions/67350331/how-to-use-hilt-to-inject-a-safe-args-argument-into-a-viewmodel
     }
