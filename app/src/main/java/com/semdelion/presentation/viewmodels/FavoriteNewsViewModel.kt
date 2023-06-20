@@ -7,27 +7,31 @@ import com.semdelion.domain.models.NewsModel
 import com.semdelion.domain.usecases.news.GetFavoriteNewsUseCase
 import com.semdelion.presentation.viewmodels.base.BaseListViewModel
 import com.semdelion.presentation.viewmodels.extentions.ListViewState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collectLatest
 
 class FavoriteNewsViewModel(private val getFavoriteNewsUseCase: GetFavoriteNewsUseCase) :
     BaseListViewModel() {
     private val _items = MutableLiveData<MutableList<NewsModel>>()
     val items: LiveData<MutableList<NewsModel>> = _items
 
-    fun loadFavoriteNews(): Job {
-        return viewModelScope.launch(Dispatchers.IO) {
-            try {
+    init {
+        loadFavoriteNews()
+    }
+
+    private fun loadFavoriteNews() {
+         viewModelScope.launch {
                 _viewState.emit(ListViewState.Loading)
+                getFavoriteNewsUseCase.getFavoriteNews().collectLatest {
+                    try {
+                        _items.postValue(it.toMutableList())
+                        _viewState.emit(ListViewState.Success)
+                    } catch (ex: Exception) {
+                        _viewState.emit(ListViewState.Error(ex))
+                    }
+                }
 
-                val news = getFavoriteNewsUseCase.getFavoriteNews()
-                _items.postValue(news.toMutableList())
-
-                _viewState.emit(ListViewState.Success)
-            } catch (ex: Exception) {
-                _viewState.emit(ListViewState.Error(ex))
-            }
         }
     }
 }

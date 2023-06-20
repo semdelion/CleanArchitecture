@@ -64,11 +64,6 @@ class FavoriteNewsFragment : Fragment() {
             adapter.submitList(it)
         }
 
-        viewBinding.newsSwipeRefreshLayout.setOnRefreshListener {
-            viewModel.loadFavoriteNews()
-                .invokeOnCompletion { viewBinding.newsSwipeRefreshLayout.isRefreshing = false }
-        }
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.viewState.collectLatest {
@@ -102,19 +97,6 @@ class FavoriteNewsFragment : Fragment() {
                 }
             }
         }
-
-        /*getNavigationResultLiveData<Boolean>()?.observe(viewLifecycleOwner) { booleanValue ->
-            if(booleanValue) {
-                viewModel.loadFavoriteNews()
-                setNavigationResult(false)
-            }
-        }*/
-
         return viewBinding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.loadFavoriteNews()
     }
 }

@@ -4,6 +4,9 @@ import com.semdelion.data.storages.interfaces.IFavoriteNewsStorage
 import com.semdelion.data.storages.room.FavoriteNewsEntity
 import com.semdelion.domain.models.NewsModel
 import com.semdelion.domain.repositories.IFavoriteNewsRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 
 class FavoriteNewsRepositoryImpl(private val favoriteNewsStorage: IFavoriteNewsStorage) :
     IFavoriteNewsRepository {
@@ -22,14 +25,14 @@ class FavoriteNewsRepositoryImpl(private val favoriteNewsStorage: IFavoriteNewsS
         return favoriteNewsStorage.addNews(newsEntity)
     }
 
-    override suspend fun getFavoriteNews(): List<NewsModel> {
+    override fun getFavoriteNews(): Flow<List<NewsModel>> {
         val result = favoriteNewsStorage.getNews()
 
-        return if (result.isEmpty()) {
-            listOf()
-        } else {
+        return result.map {
             val list = mutableListOf<NewsModel>()
-            result.forEach { list.add(it.toFavoriteNewsModel())}
+            if (it.isNotEmpty()) {
+                it.forEach {item ->  list.add(item.toFavoriteNewsModel())}
+            }
             list
         }
     }

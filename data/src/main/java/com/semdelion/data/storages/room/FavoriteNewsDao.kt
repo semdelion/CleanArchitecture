@@ -4,11 +4,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteNewsDao {
     @Query("SELECT * from favorite_news_table")
-    suspend fun getFavoriteNews(): List<FavoriteNewsEntity>
+    fun getFavoriteNews(): Flow<List<FavoriteNewsEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(favoriteNews: FavoriteNewsEntity): Long
