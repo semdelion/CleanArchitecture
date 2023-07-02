@@ -10,10 +10,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.semdelion.R
 import com.semdelion.data.services.interceptors.NoConnectivityException
 import com.semdelion.databinding.FragmentFavoriteNewsBinding
+import com.semdelion.domain.models.NewsModel
 import com.semdelion.presentation.navigation.NewsNavigationArg
 import com.semdelion.presentation.viewmodels.FavoriteNewsViewModel
 import com.semdelion.presentation.viewmodels.extentions.ListViewState
@@ -29,7 +31,7 @@ class FavoriteNewsFragment : Fragment() {
     }
 
     private lateinit var viewModel: FavoriteNewsViewModel
-    private lateinit var viewBinding: FragmentFavoriteNewsBinding
+    private lateinit var binding: FragmentFavoriteNewsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,23 +45,20 @@ class FavoriteNewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_favorite_news,
             container,
             false
         )
-        viewBinding.lifecycleOwner = this
-        viewBinding.vm = viewModel
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
 
-        viewBinding.newsRecyclerview.layoutManager =
+        binding.newsRecyclerview.layoutManager =
             LinearLayoutManager(requireContext().applicationContext)
-        val adapter = FavoriteNewsRecyclerAdapter { navArg: NewsNavigationArg ->
-            FavoriteNewsFragmentDirections.actionFavoriteNewsFragmentToFavoriteNewsDetailsFragment(
-                navArg
-            )
-        }
-        viewBinding.newsRecyclerview.adapter = adapter
+
+        val adapter = FavoriteNewsRecyclerAdapter (::onItemClick )
+        binding.newsRecyclerview.adapter = adapter
         viewModel.items.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
@@ -67,36 +66,58 @@ class FavoriteNewsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.viewState.collectLatest {
-                    val hasItems = ((viewModel.items.value?.size ?: 0) > 0)
-                    when (it) {
-                        is ListViewState.Loading -> {
-                            viewBinding.newsLoaderProgressBar.visibility =
-                                if (hasItems) View.GONE else View.VISIBLE
-                            viewBinding.stateLayout.visibility = View.GONE
-                        }
-                        is ListViewState.Success -> {
-                            viewBinding.newsLoaderProgressBar.visibility = View.GONE
-                            viewBinding.stateLayout.visibility = if (hasItems) View.GONE else View.VISIBLE
-                            if (!hasItems) {
-                                viewBinding.stateAnimationView.setAnimation(R.raw.anim_no_data)
-                                viewBinding.stateTextview.text = "No news!"
-                            }
-                        }
-                        is ListViewState.Error -> {
-                            viewBinding.stateLayout.visibility = if (hasItems) View.GONE else View.VISIBLE
-                            viewBinding.newsLoaderProgressBar.visibility = View.GONE
-                            if (!hasItems) {
-                                val animId =
-                                    if (it.error is NoConnectivityException) R.raw.anim_no_internet
-                                    else R.raw.anim_error
-                                viewBinding.stateAnimationView.setAnimation(animId)
-                                viewBinding.stateTextview.text = it.error.message
-                            }
-                        }
-                    }
+                    stateChangeListener(it)
                 }
             }
         }
-        return viewBinding.root
+        return binding.root
+    }
+
+    private fun onItemClick(news: NewsModel) {
+        val navArg = NewsNavigationArg(
+            title = news.title,
+            link = news.link,
+            creator = news.creator,
+            content = news.content,
+            pubDate = news.pubDate,
+            imageURL = news.imageURL
+        )
+        this.findNavController().navigate(
+            FavoriteNewsFragmentDirections.actionFavoriteNewsFragmentToFavoriteNewsDetailsFragment(
+                navArg
+            )
+        )
+    }
+
+    private fun stateChangeListener(state: ListViewState) {
+        val hasItems = ((viewModel.items.value?.size ?: 0) > 0)
+        when (state) {
+            is ListViewState.Loading -> {
+                binding.newsLoaderProgressBar.visibility =
+                    if (hasItems) View.GONE else View.VISIBLE
+                binding.stateLayout.visibility = View.GONE
+            }
+
+            is ListViewState.Success -> {
+                binding.newsLoaderProgressBar.visibility = View.GONE
+                binding.stateLayout.visibility = if (hasItems) View.GONE else View.VISIBLE
+                if (!hasItems) {
+                    binding.stateAnimationView.setAnimation(R.raw.anim_no_data)
+                    binding.stateTextview.text = "No news!"
+                }
+            }
+
+            is ListViewState.Error -> {
+                binding.stateLayout.visibility = if (hasItems) View.GONE else View.VISIBLE
+                binding.newsLoaderProgressBar.visibility = View.GONE
+                if (!hasItems) {
+                    val animId =
+                        if (state.error is NoConnectivityException) R.raw.anim_no_internet
+                        else R.raw.anim_error
+                    binding.stateAnimationView.setAnimation(animId)
+                    binding.stateTextview.text = state.error.message
+                }
+            }
+        }
     }
 }

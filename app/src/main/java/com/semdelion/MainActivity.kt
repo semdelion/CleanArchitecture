@@ -24,19 +24,18 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var viewBinding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
+        binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
 
-        viewBinding.bottomNavigationView.setupWithNavController(navController)
-        setSupportActionBar(viewBinding.mainToolbar)
+        binding.bottomNavigationView.setupWithNavController(navController)
+        setSupportActionBar(binding.mainToolbar)
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.newsFragment,

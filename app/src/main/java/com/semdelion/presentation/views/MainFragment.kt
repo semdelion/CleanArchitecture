@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var viewBinding: FragmentUserBinding
+    private lateinit var binding: FragmentUserBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +39,11 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_user, container, false)
-        viewBinding.lifecycleOwner = this
-        viewBinding.mainViewModel = viewModel
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user, container, false)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewModel
 
-        val view = viewBinding.root
+        val view = binding.root
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.useCaseState.collectLatest {

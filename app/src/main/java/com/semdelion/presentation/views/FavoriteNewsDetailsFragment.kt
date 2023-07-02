@@ -29,7 +29,7 @@ class FavoriteNewsDetailsFragment : Fragment(), MenuProvider {
     }
 
     private lateinit var viewModel: FavoriteNewsDetailsViewModel
-    private lateinit var viewBinding: FragmentFavoriteNewsDetailsBinding
+    private lateinit var binding: FragmentFavoriteNewsDetailsBinding
     private val args: NewsDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,36 +45,36 @@ class FavoriteNewsDetailsFragment : Fragment(), MenuProvider {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
-        viewBinding =
+        binding =
             DataBindingUtil.inflate(
                 inflater,
                 R.layout.fragment_favorite_news_details,
                 container,
                 false
             )
-        viewBinding.lifecycleOwner = this
-        viewBinding.vm = viewModel
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
         setupMenu()
 
 
         if (viewModel.imageUrl.isNotEmpty()) {
             Glide.with(requireContext().applicationContext).load(viewModel.imageUrl)
-                .placeholder(R.drawable.ic_news_placeholder).into(viewBinding.newsDetailsImageview)
+                .placeholder(R.drawable.ic_news_placeholder).into(binding.newsDetailsImageview)
         } else {
-            viewBinding.newsDetailsImageview.visibility = GONE
+            binding.newsDetailsImageview.visibility = GONE
         }
 
         for (creator in viewModel.creators) {
             val creatorView = inflater.inflate(
-                R.layout._template_creator, viewBinding.newsDetailsConstraint, false
+                R.layout._template_creator, binding.newsDetailsConstraint, false
             )
             creatorView.id = generateViewId()
             creatorView.findViewById<TextView>(R.id.creator).text = creator
-            viewBinding.newsDetailsConstraint.addView(creatorView)
-            viewBinding.creatorsFlow.addView(creatorView)
+            binding.newsDetailsConstraint.addView(creatorView)
+            binding.creatorsFlow.addView(creatorView)
         }
 
-        return viewBinding.root;
+        return binding.root;
     }
 
     private fun setupMenu() {
